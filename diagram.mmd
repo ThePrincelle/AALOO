@@ -1,0 +1,15 @@
+sequenceDiagram
+    actor main
+    participant Scene as Scene (CameraImpl)
+    participant Cam as Camera (SceneImpl)
+    participant Film as Film (FilmImpl)
+    participant Config as RenderConfig (RenderConfigImpl)
+    participant State as RenderState (RenderStateImpl)
+    participant Session as RenderSession (RenderSessionImpl)
+
+    main ->> Scene: Init program
+    Scene ->> Cam: Initialize
+    activate Scene
+    Cam ->> Scene: Initialize response
+    deactivate Scene
+    

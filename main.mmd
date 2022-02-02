@@ -1,0 +1,35 @@
+sequenceDiagram
+    participant main
+    participant luxcore
+    participant Scene
+    participant RConfig as RenderConfig
+    participant RSession as RenderSession
+    participant REngine as RenderEngine
+
+    main ->>+ luxcore: luxcore::Init()
+    luxcore ->>- main: effet de bord
+    main ->>+ luxcore: luxcore::ParseLXS(...)
+    luxcore ->>- main: effet de bord
+
+    main ->>+ Scene: Scene::Create()
+    Scene ->>- main: return scene
+
+    Scene ->> Scene: scene->Parse(sceneProps)
+
+    main ->>+ RConfig: RenderConfig::Create(prop, scene)
+    RConfig ->>- main: return config
+
+    alt BatchRendering
+        main ->>+ RSession: RenderSession::Create(config, state, film)
+        RSession ->>- main: return session
+
+        main ->> RSession: session->Start()
+        RSession ->> REngine: renderEngine->Start()
+        REngine ->> REngine: StartLockLess()
+        Note over REngine: StartLockLess() est virtual pure.<br/>Cette méthode est implémentée dans<br/>le Renderer sélectionné dans la config de la scène.
+        Note over REngine: Démarrage des CPURenderThreads
+        loop !session->HasDone()
+            main ->> RSession: session->UpdateStats()
+        end
+        main ->> RSession: session->Stop()
+    end
