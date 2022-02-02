@@ -2,6 +2,7 @@ stages:
   - generate
 
 variables:
+  DOCKER_HOST: "tcp://localhost:2375"
   DOCKER_TLS_CERTDIR: "/certs"
 
 image: docker:19.03.12
