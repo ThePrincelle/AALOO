@@ -12,9 +12,8 @@ before_script:
 
 build:
   stage: build
-  before_script:
-    - docker pull minlag/mermaid-cli
   script:
+    - docker pull minlag/mermaid-cli
     - ./generate.sh
   artifacts:
     paths:
