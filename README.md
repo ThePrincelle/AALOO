@@ -2,7 +2,7 @@
 
 Bienvenue sur le dépôt des rendus pour le module "Analyse et architecture logicielle orientée objets".
 
-**Membres du groupe:**
+**Membres du groupe :**
 
 - Hugo BRUA
 - Nicolas LAFORÊT
