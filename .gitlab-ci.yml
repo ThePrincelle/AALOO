@@ -1,15 +1,17 @@
 stages:
   - generate
 
-variables:
-  DOCKER_DRIVER: overlay2
-
-services:
-  - docker:dind
-
 generate:
   stage: generate
-  image: docker
+  variables:
+      DOCKER_HOST: tcp://dockerdaemon:2375/
+      DOCKER_DRIVER: overlay2
+      DOCKER_TLS_CERTDIR: ""
+  services:
+    - name: docker:dind
+      alias: dockerdaemon
+  image:
+    name: docker:stable
   before_script:
     - docker pull minlag/mermaid-cli
   script:
