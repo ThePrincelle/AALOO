@@ -18,13 +18,13 @@ do
 
     # PNG
     echo "> PNG..."
-    docker run -it -v $(pwd):/data minlag/mermaid-cli -i /data/$file -o output/$filename/$filename.png -t dark -w 8000 -H 6000 -b transparent
+    docker run -v $(pwd):/data minlag/mermaid-cli -i /data/$file -o /data/output/$filename/$filename.png -t dark -w 8000 -H 6000 -b transparent
 
     # PDF
     echo "> PDF..."
-    docker run -it -v $(pwd):/data minlag/mermaid-cli -i /data/$file -o output/$filename/$filename.pdf
+    docker run -v $(pwd):/data minlag/mermaid-cli -i /data/$file -o /data/output/$filename/$filename.pdf
 
     # SVG
     echo "> SVG..."
-    docker run -it -v $(pwd):/data minlag/mermaid-cli -i /data/$file -o output/$filename/$filename.svg -t dark
+    docker run -v $(pwd):/data minlag/mermaid-cli -i /data/$file -o /data/output/$filename/$filename.svg -t dark
 done
