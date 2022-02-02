@@ -5,10 +5,9 @@
 # For each TP* folder, generate the diagrams
 for i in TP*; do
     echo "Generating diagrams for $i..."
-    cd $i
 
-    # List all files with *.mmd extension
-    for file in *.mmd
+    # List all files with $i/*.mmd
+    for file in "$i"/*.mmd
     do
         # Echo message
         echo "> Working on $file..."
@@ -17,23 +16,20 @@ for i in TP*; do
         filename=$(basename "$file" .mmd)
 
         # Output folder
-        mkdir -p ../output/$i/$filename
-
-        # Go back to previous directory
-        cd ..
+        mkdir -p output/$i/$filename
 
         # Generate the diagram with mmd
 
         # PNG
         echo "--> PNG..."
-        docker run -u root -v $(pwd):/data minlag/mermaid-cli -i /data/$i/$file -o /data/output/$i/$filename/$filename.png -t dark -w 8000 -H 6000 -b transparent
+        docker run -u root -v $(pwd):/data minlag/mermaid-cli -i /data/$file -o /data/output/$i/$filename/$filename.png -t dark -w 8000 -H 6000 -b transparent
 
         # PDF
         echo "--> PDF..."
-        docker run -u root -v $(pwd):/data minlag/mermaid-cli -i /data/$i/$file -o /data/output/$i/$filename/$filename.pdf
+        docker run -u root -v $(pwd):/data minlag/mermaid-cli -i /data/$file -o /data/output/$i/$filename/$filename.pdf
 
         # SVG
         echo "--> SVG..."
-        docker run -u root -v $(pwd):/data minlag/mermaid-cli -i /data/$i/$file -o /data/output/$i/$filename/$filename.svg -t dark
+        docker run -u root -v $(pwd):/data minlag/mermaid-cli -i /data/$file -o /data/output/$i/$filename/$filename.svg -t dark
     done
 done
