@@ -18,13 +18,13 @@ do
 
     # PNG
     echo "> PNG..."
-    ./node_modules/.bin/mmdc -i $file -o output/$filename/$filename.png -t dark -w 8000 -H 6000 -b transparent
+    docker run -it -v $(pwd):/data minlag/mermaid-cli -i /data/$file -o output/$filename/$filename.png -t dark -w 8000 -H 6000 -b transparent
 
     # PDF
     echo "> PDF..."
-    ./node_modules/.bin/mmdc -i $file -o output/$filename/$filename.pdf
+    docker run -it -v $(pwd):/data minlag/mermaid-cli -i /data/$file -o output/$filename/$filename.pdf
 
     # SVG
     echo "> SVG..."
-    ./node_modules/.bin/mmdc -i $file -o output/$filename/$filename.svg -t dark
+    docker run -it -v $(pwd):/data minlag/mermaid-cli -i /data/$file -o output/$filename/$filename.svg -t dark
 done

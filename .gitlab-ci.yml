@@ -1,11 +1,18 @@
 stages:
   - generate
 
+variables:
+  DOCKER_TLS_CERTDIR: "/certs"
+
+image: docker:19.03.12
+
+services:
+  - docker:19.03.12-dind
+
 generate:
   stage: generate
-  image: node
   before_script:
-    - yarn add @mermaid-js/mermaid-cli
+    - docker pull minlag/mermaid-cli
   script:
     - ./generate.sh
   artifacts:
