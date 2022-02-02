@@ -9,7 +9,7 @@ Analyse et architecture logicielle orientée objets.
 - Maxime PRINCELLE
 
 
-Les diagrammes de ce README se mettent à jour automatiquement, vous pouvez voir si une mise à jour en fonction de l'état de ce badge :
+Les diagrammes de ce README se mettent à jour automatiquement, vous pouvez voir si une mise à jour est en cours en fonction de l'état de ce badge :
 
 [![pipeline status](https://git.unistra.fr/princelle/aaloo/badges/main/pipeline.svg)](https://git.unistra.fr/princelle/aaloo/-/commits/main)
 
