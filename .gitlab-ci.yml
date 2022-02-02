@@ -2,16 +2,14 @@ stages:
   - generate
 
 variables:
-  DOCKER_HOST: "tcp://localhost:2375"
-  DOCKER_TLS_CERTDIR: "/certs"
-
-image: docker:19.03.12
+  DOCKER_DRIVER: overlay2
 
 services:
-  - docker:19.03.12-dind
+  - docker:dind
 
 generate:
   stage: generate
+  image: docker
   before_script:
     - docker pull minlag/mermaid-cli
   script:
