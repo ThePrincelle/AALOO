@@ -1,0 +1,14 @@
+stages:
+  - generate
+
+generate:
+  stage: generate
+  image: node
+  before_script:
+    - yarn add @mermaid-js/mermaid-cli
+  script:
+    - ./generate.sh
+  artifacts:
+    paths:
+      - output/*
+    untracked: true
