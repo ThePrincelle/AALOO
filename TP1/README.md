@@ -28,5 +28,5 @@ Pour cette seconde partie, il est demandé, de créer une scène d’exemple afi
 Ensuite, il faut implémenter un nouveau type de matériel, le checkboard, qui met de suite un checkboard pattern matte sur un objet. Il s’agit d’un pattern très souvent utilisé pour le débogage.
 
 <div align="center">
-    <img src="https://git.unistra.fr/princelle/aaloo/-/tree/main/TP1/assets/checkboard.png" width="200" height="200"/>
+    <img src="https://git.unistra.fr/princelle/aaloo/-/raw/main/TP1/assets/checkboard.png" width="200" height="200"/>
 </div>
