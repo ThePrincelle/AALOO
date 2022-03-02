@@ -2,6 +2,8 @@
 
 Bienvenue sur le dépôt des rendus pour le module "Analyse et architecture logicielle orientée objets".
 
+[Projet sur Git Unistra](https://git.unistra.fr/princelle/aaloo) • [Projet sur GitHub](https://github.com/ThePrincelle/AALOO)
+
 **Membres du groupe :**
 
 - Hugo BRUA
