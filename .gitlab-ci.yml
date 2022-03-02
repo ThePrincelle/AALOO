@@ -10,3 +10,7 @@ build:
     paths:
       - output/*
     untracked: true
+  only:
+    changes:
+      - TP1/*.mmd
+      - TP1/**/*.mmd
