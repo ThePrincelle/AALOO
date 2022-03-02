@@ -4,7 +4,7 @@ Cours d'architecture - Programmation orientée objet
 
 Lien vers le sujet : [Sujet.pdf](./Sujet.pdf)
 
-Lien vers l'application : https://princelle.pages.unistra.fr/aaloo/
+Lien vers l'application : https://princelle.pages.unistra.fr/aaloo/ ou https://theprincelle.github.io/AALOO/
 
 
 ## Technologies
@@ -76,3 +76,7 @@ Si vous êtes peu familier avec le développement web moderne...
 A l'aide de GitLab CI, lors d'un push sur la branche 'main', le projet est buildé et déployé sur GitLab Pages de manière automatique.
 
 Ce dernier est donc accessible via l'adresse suivante : https://princelle.pages.unistra.fr/aaloo/
+
+Dans le cas où GitLab CI ne fonctionnerais plus, l'application est également buildée et déployée à l'aide de GitHub Actions sur GitHub Pages. 
+
+Dans ce cas, l'adresse est : https://theprincelle.github.io/AALOO/
