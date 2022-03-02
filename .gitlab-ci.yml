@@ -1,6 +1,10 @@
 image: node:17-bullseye
 
-build:
+stages:
+  - build
+  - release
+
+diagrams:build:
   stage: build
   script:
     - apt-get update
@@ -14,3 +18,31 @@ build:
     changes:
       - TP1/*.mmd
       - TP1/**/*.mmd
+
+plan:build:
+  stage: build
+  script:
+    - cd TP2
+    - yarn install
+    - yarn build
+  artifacts:
+    paths:
+      - TP2/dist
+  only:
+    - main
+
+plan:pages:
+  stage: release
+  needs:
+    - plan:build
+  script:
+    - mkdir public
+    - cp -ar TP2/dist/. public/
+    - ls -l public
+  artifacts:
+    paths:
+      - public
+  only:
+    - main
+
+

@@ -1,7 +1,8 @@
 {
   "scripts": {
     "build": "webpack --progress",
-    "serve": "webpack serve --progress --no-hot --open"
+    "serve": "webpack serve --progress --no-hot --open",
+    "start": "yarn serve"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.3.0",
