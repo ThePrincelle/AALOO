@@ -4,7 +4,7 @@ stages:
   - build
   - release
 
-diagrams:build:
+diagrams-build:
   stage: build
   script:
     - apt-get update
@@ -20,7 +20,7 @@ diagrams:build:
       - TP1/**/*.mmd
       - TP1/*.md
 
-plan:build:
+plan-build:
   stage: build
   script:
     - cd TP2

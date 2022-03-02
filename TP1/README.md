@@ -13,17 +13,17 @@ Il est demandé, dans cette partie, de tracer un diagramme de séquence UML avec
 
 Ce diagramme présente l'entrée du programme via la console (main) et les différents échanges qui y sont faits.
 
-![Diagramme Main](https://git.unistra.fr/princelle/aaloo/-/jobs/artifacts/main/raw/output/TP1/main/main.png?job=diagrams:build)
-[[Version PDF](https://git.unistra.fr/princelle/aaloo/-/jobs/artifacts/main/raw/output/TP1/main/main.pdf?job=diagrams:build)]
-[[Version SVG](https://git.unistra.fr/princelle/aaloo/-/jobs/artifacts/main/raw/output/TP1/main/main.svg?job=diagrams:build)]
+![Diagramme Main](https://git.unistra.fr/princelle/aaloo/-/jobs/artifacts/main/raw/output/TP1/main/main.png?job=diagrams-build)
+[[Version PDF](https://git.unistra.fr/princelle/aaloo/-/jobs/artifacts/main/raw/output/TP1/main/main.pdf?job=diagrams-build)]
+[[Version SVG](https://git.unistra.fr/princelle/aaloo/-/jobs/artifacts/main/raw/output/TP1/main/main.svg?job=diagrams-build)]
 
 ### StartLockLess
 
 On détaille ici le fonctionnement de `StartLockLess` est une méthode implémentée dans le Renderer sélectionné dans la config de la scène.
 
-![Diagramme StartLockLess](https://git.unistra.fr/princelle/aaloo/-/jobs/artifacts/main/raw/output/TP1/startLockLess/startLockLess.png?job=diagrams:build)
-[[Version PDF](https://git.unistra.fr/princelle/aaloo/-/jobs/artifacts/main/raw/output/TP1/startLockLess/startLockLess.pdf?job=diagrams:build)]
-[[Version SVG](https://git.unistra.fr/princelle/aaloo/-/jobs/artifacts/main/raw/output/TP1/startLockLess/startLockLess.svg?job=diagrams:build)]
+![Diagramme StartLockLess](https://git.unistra.fr/princelle/aaloo/-/jobs/artifacts/main/raw/output/TP1/startLockLess/startLockLess.png?job=diagrams-build)
+[[Version PDF](https://git.unistra.fr/princelle/aaloo/-/jobs/artifacts/main/raw/output/TP1/startLockLess/startLockLess.pdf?job=diagrams-build)]
+[[Version SVG](https://git.unistra.fr/princelle/aaloo/-/jobs/artifacts/main/raw/output/TP1/startLockLess/startLockLess.svg?job=diagrams-build)]
 
 ## 2. Scène d'exemple
 
