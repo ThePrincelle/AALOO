@@ -1,6 +1,10 @@
 # Seed Paper.js
 
-Cours d'architecture — Programmation orientée objet
+Cours d'architecture - Programmation orientée objet
+
+Lors d'un push sur la branche 'main', le projet est buildé et déployé sur GitLab Pages de manière automatique.
+
+Ce dernier est donc accessible via l'adresse suivante : https://princelle.pages.unistra.fr/aaloo/
 
 ## Technologies
 
