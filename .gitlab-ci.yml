@@ -16,6 +16,7 @@ build:
   script:
     - docker pull minlag/mermaid-cli
     - ls
+    - chmod +x ./generate.sh
     - ./generate.sh
   artifacts:
     paths:
