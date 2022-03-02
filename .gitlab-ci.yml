@@ -19,6 +19,7 @@ diagrams-build:
       - TP1/*.mmd
       - TP1/**/*.mmd
       - TP1/*.md
+      - .gitlab-ci.yml
 
 plan-build:
   stage: build
