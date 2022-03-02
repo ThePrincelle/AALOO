@@ -35,7 +35,7 @@ plan-build:
 pages:
   stage: release
   needs:
-    - plan:build
+    - plan-build
   script:
     - mkdir public
     - cp -ar TP2/dist/. public/
