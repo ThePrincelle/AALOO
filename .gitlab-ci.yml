@@ -18,6 +18,7 @@ diagrams:build:
     changes:
       - TP1/*.mmd
       - TP1/**/*.mmd
+      - TP1/*.md
 
 plan:build:
   stage: build
