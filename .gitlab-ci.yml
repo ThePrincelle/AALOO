@@ -1,21 +1,8 @@
-image: docker:19.03.12
-
-variables:
-  DOCKER_DRIVER: overlay2
-  DOCKER_TLS_CERTDIR: ""
-  DOCKER_HOST: tcp://localhost:2375
-
-services:
-  - docker:19.03.12-dind
-
-before_script:
-  - docker info
+image: minlag/mermaid-cli
 
 build:
   stage: build
   script:
-    - docker pull minlag/mermaid-cli
-    - apk add bash
     - ./generate.sh
   artifacts:
     paths:
