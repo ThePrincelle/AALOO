@@ -36,7 +36,7 @@ for i in ${tp_diagrams[@]}; do
         if [ $docker == 1 ]; then
             docker run -u root -v $(pwd):/data minlag/mermaid-cli -i /data/$file -o /data/output/$i/$filename/$filename.png -w 8000 -H 6000 -b white
         else
-            mmdc -i /data/$file -o /data/output/$i/$filename/$filename.png -w 8000 -H 6000 -b white
+            npx -p @mermaid-js/mermaid-cli mmdc -i /data/$file -o /data/output/$i/$filename/$filename.png -w 8000 -H 6000 -b white
         fi
 
         # PDF
@@ -44,7 +44,7 @@ for i in ${tp_diagrams[@]}; do
         if [ $docker == 1 ]; then
             docker run -u root -v $(pwd):/data minlag/mermaid-cli -i /data/$file -o /data/output/$i/$filename/$filename.pdf
         else
-            mmdc -i /data/$file -o /data/output/$i/$filename/$filename.pdf
+            npx -p @mermaid-js/mermaid-cli mmdc -i /data/$file -o /data/output/$i/$filename/$filename.pdf
         fi
 
         # SVG
@@ -52,7 +52,7 @@ for i in ${tp_diagrams[@]}; do
         if [ $docker == 1 ]; then
             docker run -u root -v $(pwd):/data minlag/mermaid-cli -i /data/$file -o /data/output/$i/$filename/$filename.svg
         else
-            mmdc -i /data/$file -o /data/output/$i/$filename/$filename.svg
+            npx -p @mermaid-js/mermaid-cli mmdc -i /data/$file -o /data/output/$i/$filename/$filename.svg
         fi
     done
 done

@@ -1,4 +1,4 @@
-image: minlag/mermaid-cli
+image: node:17-bullseye
 
 build:
   stage: build
