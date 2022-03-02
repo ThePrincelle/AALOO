@@ -2,8 +2,10 @@
 # Script that generates the diagrams (*.mmd) output
 # --------------------------------
 
-# For each TP* folder, generate the diagrams
-for i in TP*; do
+tp_diagrams=( "TP1" )
+
+# For each tp_diagrams folder, generate the diagrams
+for i in ${tp_diagrams[@]}; do
     echo "> Generating diagrams for $i..."
 
     # List all files with $i/*.mmd
