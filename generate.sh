@@ -1,8 +1,9 @@
+#!/bin/bash
 # generate.sh
 # Script that generates the diagrams (*.mmd) output
 # --------------------------------
 
-tp_diagrams=("TP1")
+tp_diagrams=( "TP1" )
 
 # For each 'tp_diagrams' folder, generate the diagrams
 for i in ${tp_diagrams[@]}; do
