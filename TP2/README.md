@@ -6,7 +6,6 @@ Lien vers le sujet : [Sujet.pdf](./Sujet.pdf)
 
 Lien vers l'application : https://princelle.pages.unistra.fr/aaloo/
 
-[[_TOC_]]
 
 ## Technologies
 
