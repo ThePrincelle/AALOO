@@ -13,6 +13,7 @@ diagrams-build:
   artifacts:
     paths:
       - output/*
+    expire_in: 1 week
     untracked: true
 
 plan-build:
@@ -24,6 +25,7 @@ plan-build:
   artifacts:
     paths:
       - TP2/dist
+    expire_in: 1 week
   only:
     - main
 
@@ -38,6 +40,7 @@ pages:
   artifacts:
     paths:
       - public
+    expire_in: 1 week
   only:
     - main
 
