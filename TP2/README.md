@@ -2,9 +2,10 @@
 
 Cours d'architecture - Programmation orientée objet
 
-Lors d'un push sur la branche 'main', le projet est buildé et déployé sur GitLab Pages de manière automatique.
+Lien vers le sujet : [Sujet.pdf](./Sujet.pdf)
+Lien vers l'application : https://princelle.pages.unistra.fr/aaloo/
 
-Ce dernier est donc accessible via l'adresse suivante : https://princelle.pages.unistra.fr/aaloo/
+[[_TOC_]]
 
 ## Technologies
 
@@ -69,3 +70,9 @@ Si vous êtes peu familier avec le développement web moderne...
  - `yarn.lock` est un fichier autogénéré dérivé des dépendances indiquées dans `package.json`, permettant à chaque
    personne travaillant sur le projet d'utiliser exactement les mêmes dépendances, assurant ainsi des comportements
    reproductibles.
+
+## Déploiement automatisé
+
+A l'aide de GitLab CI, lors d'un push sur la branche 'main', le projet est buildé et déployé sur GitLab Pages de manière automatique.
+
+Ce dernier est donc accessible via l'adresse suivante : https://princelle.pages.unistra.fr/aaloo/
