@@ -5,7 +5,7 @@ import { PaperTool } from '../toolbar';
 import { CreatorToolbox } from '../toolboxes';
 
 export class FixElement extends PaperTool {
-    public readonly name = 'Poser des élements fixs';
+    public readonly name = 'Poser des élements fixes';
 
     public readonly icon = icon(faWeightHanging);
 

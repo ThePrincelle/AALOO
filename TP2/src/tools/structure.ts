@@ -1,12 +1,12 @@
 import { icon } from '@fortawesome/fontawesome-svg-core';
-import { faPen } from '@fortawesome/free-solid-svg-icons';
+import { faDrawPolygon } from '@fortawesome/free-solid-svg-icons';
 //import * as paper from 'paper';
 import { PaperTool } from '../toolbar';
 
 export class Structure extends PaperTool {
     public readonly name = 'Dessiner la structure globale';
 
-    public readonly icon = icon(faPen);
+    public readonly icon = icon(faDrawPolygon);
 
     public constructor() {
         super();

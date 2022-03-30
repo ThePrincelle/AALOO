@@ -1,0 +1,46 @@
+// Hover the tooltip class in tool element to see the tooltip
+//
+// Class: .tooltip
+//
+// Parent: .tool
+
+// Little fix on tool class
+.tool {
+    position: relative;
+}
+
+// Setup tooltip on top of tool
+.tool .tooltip {
+    display: none;
+    width: 120px;
+    background-color: #414b59b2;
+    color: white;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px;
+    margin-bottom: 6px;
+    position: absolute;
+    z-index: 1;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -60px;
+}
+
+// Arrow at the bottom of the tooltip
+.tool .tooltip::after {
+    content: " ";
+    position: absolute;
+    top: 100%; /* At the bottom of the tooltip */
+    left: 50%;
+    margin-left: -5px;
+    transform: translateX(-50%);
+    border-width: 5px;
+    border-style: solid;
+    border-color: #414b59b2 transparent transparent transparent;
+  }
+
+// Displays the tooltip when you hover over the tool
+.tool:hover .tooltip {
+    // visibility: visible;
+    display: block;
+}

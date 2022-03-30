@@ -1,12 +1,12 @@
 import { icon } from '@fortawesome/fontawesome-svg-core';
-import { faGripLines } from '@fortawesome/free-solid-svg-icons';
+import { faPenAlt } from '@fortawesome/free-solid-svg-icons';
 //import * as paper from 'paper';
 import { PaperTool } from '../toolbar';
 
 export class Partitions extends PaperTool {
     public readonly name = 'Mettre en place des cloisons';
 
-    public readonly icon = icon(faGripLines);
+    public readonly icon = icon(faPenAlt);
 
     public constructor() {
         super();
