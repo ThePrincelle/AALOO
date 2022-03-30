@@ -15,7 +15,9 @@ diagrams-build:
       - output/*
     expire_in: 1 week
     untracked: true
-
+  only:
+    - main
+    
 plan-build:
   stage: build
   script:
