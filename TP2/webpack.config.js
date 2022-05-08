@@ -6,7 +6,7 @@ module.exports = {
 
     devtool: 'source-map',
 
-    entry: './src/index.ts',
+    entry: './src/frontend/vanilla-js/index.ts',
 
     output: {
         path: path.resolve(__dirname, 'dist'),
@@ -16,7 +16,7 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             filename: 'index.html',
-            template: 'src/index.html'
+            template: 'src/frontend/vanilla-js/index.html'
         })
     ],
 

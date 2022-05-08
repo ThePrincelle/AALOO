@@ -1,0 +1,26 @@
+@use '../variables' as vars;
+
+.toolbox {
+    display: flex;
+    flex-direction: column;
+    row-gap: 16px;
+    padding: 16px;
+    border-radius: 6px;
+    background-color: vars.$color-slate;
+    box-shadow: vars.$popup-box-shadow;
+    color: white;
+
+    .toolbox-heading {
+        display: flex;
+        align-items: center;
+
+        > .toolbox-title {
+            text-transform: uppercase;
+            flex-grow: 1;
+        }
+
+        > .toolbox-action {
+            text-transform: uppercase;
+        }
+    }
+}
