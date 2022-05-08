@@ -1,5 +1,6 @@
 import * as paper from 'paper';
 import { PlanUI } from '../plan';
+import { Statusbar } from '../statusbar';
 import { Toolbar } from '../toolbar';
 import { ToolboxesContainer } from '../toolbox';
 import {
@@ -27,6 +28,8 @@ export class App {
         this.initializePaper();
         this.initializePlan();
 
+        Statusbar.create(element, this.planFactory.viewModel);
+
         const colorToolbox = new ColorToolbox();
         const pathToolbox = new PathToolbox();
 
@@ -35,7 +38,6 @@ export class App {
         toolboxes.addToolbox(
             new LayerToolbox(
                 this.planFactory.controller,
-                this.planFactory.presenter,
                 this.planFactory.viewModel
             )
         );

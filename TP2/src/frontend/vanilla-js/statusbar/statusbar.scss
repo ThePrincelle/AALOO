@@ -1,0 +1,25 @@
+@use '../variables' as vars;
+
+.statusbar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: vars.$color-slate;
+    box-shadow: vars.$popup-box-shadow;
+
+    > .statusbar-title {
+        text-align: center;
+        font-weight: bold;
+        color: vars.$color-text-light;
+        background-color: transparent;
+        border: transparent;
+        padding: 0.125rem 0.5rem;
+        border-radius: 0.25rem;
+        transition: all 50ms ease-in-out;
+
+        &:focus {
+            outline: none;
+            border: 2px solid vars.$color-primary;
+        }
+    }
+}
