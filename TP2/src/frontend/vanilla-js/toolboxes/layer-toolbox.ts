@@ -6,7 +6,6 @@ import {
     ItemViewModel,
     LayerViewModel,
     PlanController,
-    PlanUIPresenter,
     ViewModel,
 } from '../../interface-adapter/plan';
 
@@ -17,7 +16,6 @@ export class LayerToolbox extends Toolbox {
 
     public constructor(
         private readonly controller: PlanController,
-        private readonly presenter: PlanUIPresenter,
         private readonly viewModel: ViewModel
     ) {
         super();
@@ -32,7 +30,6 @@ export class LayerToolbox extends Toolbox {
             // TODO: Create layer from controller
             console.log('TODO: Create layer');
             // TODO: Refresh view with presenter
-            this.presenter;
             this.controller.getPlans();
         };
 
@@ -71,7 +68,6 @@ export class LayerToolbox extends Toolbox {
 
         const layer = document.createElement('details');
         layer.open = true;
-        // title.classList.add('layer-drawer-title');
         const layerTitle = document.createElement('summary');
         layerTitle.classList.add('layer-drawer-title');
         layerTitle.appendChild(document.createTextNode(layerVM.name));

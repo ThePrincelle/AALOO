@@ -33,7 +33,6 @@ export class FillTool extends PaperTool {
 
     public onMouseDown(event: paper.ToolEvent): void {
         const hit = paper.project.activeLayer.hitTest(event.downPoint);
-        const color = this.colorToolbox.currentPaperColor;
 
         if (hit?.item) {
             let item = hit.item;
@@ -43,18 +42,19 @@ export class FillTool extends PaperTool {
 
             item.children.forEach((child) => {
                 if (child.matches({ data: { isDomainItem: true } })) {
-                    child.data.fillColor = color;
-                    child.data.strokeColor = color;
+                    child.data.fillColor = this.colorToolbox.currentPaperColor;
+                    child.data.strokeColor =
+                        this.colorToolbox.currentPaperColor;
                     this.controller; // TODO: updateItem
                     // this.controller.updateItem(child.data as Item);
                 }
 
                 if (child.matches({ data: { showSelected: true } })) {
-                    child.fillColor = color;
+                    child.fillColor = this.colorToolbox.currentPaperColor;
                     child.fillColor.lightness *= 1.2;
-                    child.strokeColor = color;
+                    child.strokeColor = this.colorToolbox.currentPaperColor;
                 } else {
-                    child.fillColor = color;
+                    child.fillColor = this.colorToolbox.currentPaperColor;
                     child.fillColor.lightness *= 0.8;
                 }
             });
