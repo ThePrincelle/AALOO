@@ -1,5 +1,5 @@
 import { icon } from '@fortawesome/fontawesome-svg-core';
-import { faAdd } from '@fortawesome/free-solid-svg-icons';
+import { faAdd, faEye, faLockOpen } from '@fortawesome/free-solid-svg-icons';
 import { Toolbox } from '../toolbox';
 import './layer-toolbox.scss';
 import {
@@ -13,6 +13,8 @@ export class LayerToolbox extends Toolbox {
     protected readonly title = 'Layers';
 
     private readonly addIcon = icon(faAdd);
+    private readonly eyeIcon = icon(faEye);
+    private readonly lockOpenIcon = icon(faLockOpen);
 
     public constructor(
         private readonly controller: PlanController,
@@ -70,6 +72,7 @@ export class LayerToolbox extends Toolbox {
         layer.open = true;
         const layerTitle = document.createElement('summary');
         layerTitle.classList.add('layer-drawer-title');
+        layerTitle.classList.add('disable-select');
         layerTitle.appendChild(document.createTextNode(layerVM.name));
         layer.appendChild(layerTitle);
 
@@ -94,8 +97,29 @@ export class LayerToolbox extends Toolbox {
         const itemElement = document.createElement('div');
         itemElement.appendChild(document.createTextNode(itemVM.name));
         itemElement.classList.add('layer-item-element');
+        itemElement.classList.add('disable-select');
 
         element.appendChild(itemElement);
+        this.addIcons(element);
+
+        return element;
+    }
+
+    private addIcons(element: HTMLElement): HTMLElement {
+        const iconsContainer = document.createElement('div');
+        iconsContainer.classList.add('icons-container');
+
+        const showButtonElement = document.createElement('button');
+        showButtonElement.classList.add('item-button');
+        showButtonElement.appendChild(this.eyeIcon.node[0]);
+        iconsContainer.appendChild(showButtonElement);
+
+        const lockButtonElement = document.createElement('button');
+        lockButtonElement.classList.add('item-button');
+        lockButtonElement.appendChild(this.lockOpenIcon.node[0]);
+        iconsContainer.appendChild(lockButtonElement);
+
+        element.appendChild(iconsContainer);
 
         return element;
     }
