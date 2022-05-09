@@ -14,6 +14,8 @@ import {
     SavePlanResponse,
     UpdatePlanPresenterInterface,
     UpdatePlanResponse,
+    UpdateItemPresenterInterface,
+    UpdateItemResponse,
 } from '../../../domain/usecases';
 import {
     LayerViewModel,
@@ -30,7 +32,8 @@ export class PlanUIPresenter
         GetPlansPresenterInterface,
         LoadPlanPresenterInterface,
         SavePlanPresenterInterface,
-        UpdatePlanPresenterInterface
+        UpdatePlanPresenterInterface,
+        UpdateItemPresenterInterface
 {
     private _viewModel = new ViewModel();
     private _plans: Plan[] = [];
@@ -89,6 +92,25 @@ export class PlanUIPresenter
         this.presentGetPlan(res);
     }
 
+    public presentUpdateItem(response: UpdateItemResponse): void {
+        const planIndex = this._plans.findIndex(
+            (p) => p.id === response.planId
+        );
+        if (planIndex === -1) throw new Error('Plan not found');
+
+        const layerIndex = this._plans[planIndex].layers.findIndex(
+            (l) => l.id === response.layerId
+        );
+        if (layerIndex === -1) throw new Error('Layer not found');
+
+        const index = this._plans[planIndex].layers[
+            layerIndex
+        ].children.findIndex((i) => i.id === response.updatedItem!.id);
+        this._plans[planIndex].layers[layerIndex].children[index] =
+            response.updatedItem!;
+        this.updateViewPlans();
+    }
+
     private updateViewPlans(): void {
         this.viewModel.update({
             plans: this._plans.map(
@@ -110,7 +132,12 @@ export class PlanUIPresenter
                                                 item.shape,
                                                 item.fillcolor,
                                                 item.strokecolor,
-                                                item.strokeWidth
+                                                item.strokeWidth,
+                                                item.locked,
+                                                item.visible,
+                                                item.position,
+                                                item.rotation,
+                                                item.scale
                                             )
                                     )
                                 )

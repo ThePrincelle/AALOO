@@ -30,9 +30,20 @@ export class UpdateItem {
             return;
         }
 
-        plan.layers[layerIndex].children.push(request.item);
+        // Check if item exists
+        const itemIndex = plan.layers[layerIndex].children.findIndex(
+            (i) => i.id === request.item.id
+        );
+        if (itemIndex === -1) {
+            plan.layers[layerIndex].children.push(request.item);
+        } else {
+            plan.layers[layerIndex].children[itemIndex] = request.item;
+        }
+
         await this.repository.update(plan);
         response.updatedItem = request.item;
+        response.planId = request.planId;
+        response.layerId = request.layerId;
 
         presenter.presentUpdateItem(response);
     }

@@ -87,11 +87,20 @@
         background-color: transparentize(black, .85);
         border: none;
         transition: all 50ms ease-in-out;
-        padding: 0.4rem;
+        height: 1.75em;
+        width: 1.75em;
         border-radius: 0.25rem;
 
         &:hover {
             background-color: transparentize(black, .4);
+        }
+
+        &[aria-checked="true"] {
+            background-color: vars.$color-primary;
+
+            &:hover {
+                background-color: transparentize(vars.$color-primary, .4);
+            }
         }
     }
 }

@@ -12,22 +12,18 @@ export class Plan {
     public constructor(
         public readonly id: string,
         public name: string = 'Untitled',
-        private _layers: Layer[] = [
+        public layers: Layer[] = [
             new Layer('0', 'Foundation', [
                 Item.create('3', ItemType.Foundation, 'Foundation'),
             ]),
             new Layer('1', 'Walls'),
-            new Layer('2', 'Zone 1', [
+            new Layer('2', 'Items', [
                 Item.create('4', ItemType.Furniture, 'Table'),
             ]),
         ]
     ) {
         this.activeLayer =
             this.layers.length > 0 ? this.layers[this.layers.length] : null;
-    }
-
-    get layers(): Layer[] {
-        return this._layers;
     }
 
     /**
@@ -37,7 +33,7 @@ export class Plan {
      * @param layer - layer to add.
      */
     public addLayer(layer: Layer): void {
-        this._layers.push(layer);
+        this.layers.push(layer);
         this.activeLayer = layer;
     }
 
@@ -49,7 +45,7 @@ export class Plan {
      * @param layer - layer to insert.
      */
     public insertLayer(index: number, layer: Layer): void {
-        this._layers.splice(index, 0, layer);
+        this.layers.splice(index, 0, layer);
         this.activeLayer = layer;
     }
 
@@ -60,7 +56,7 @@ export class Plan {
      * @param index - index of the layer to remove.
      */
     public removeLayer(index: number): void {
-        const removedLayer = this._layers.splice(index, 1).at(0);
+        const removedLayer = this.layers.splice(index, 1).at(0);
 
         const wasActiveLayer = removedLayer === this.activeLayer;
         if (wasActiveLayer) {
@@ -71,12 +67,12 @@ export class Plan {
 
     // TODO: usefull?
     public clear(): void {
-        this._layers = [
+        this.layers = [
             new Layer('0', 'Foundation', [
                 Item.create('3', ItemType.Foundation, 'Foundation'),
             ]),
             new Layer('1', 'Walls'),
-            new Layer('2', 'Zone 1'),
+            new Layer('2', 'Items'),
         ];
         this.activeLayer = this.layers[this.layers.length];
     }

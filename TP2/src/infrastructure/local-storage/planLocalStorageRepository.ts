@@ -54,7 +54,8 @@ export class PlanLocalStorageRepository implements PlanRepositoryInterface {
 
     /** @inheritdoc */
     public async getAll(): Promise<Plan[]> {
-        return this.getList();
+        this.plans = this.getList();
+        return this.plans;
     }
 
     /**
@@ -104,8 +105,8 @@ export class PlanLocalStorageRepository implements PlanRepositoryInterface {
      *      The plan if found, undefined otherwise.
      */
     public async load(planId: string): Promise<Plan | undefined> {
-        const list = this.getList();
-        const plan = list.find((p) => p.id === planId);
+        this.plans = this.getList();
+        const plan = this.plans.find((p) => p.id === planId);
 
         return plan;
     }

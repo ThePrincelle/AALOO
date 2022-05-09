@@ -1,5 +1,11 @@
 import { icon } from '@fortawesome/fontawesome-svg-core';
-import { faAdd, faEye, faLockOpen } from '@fortawesome/free-solid-svg-icons';
+import {
+    faAdd,
+    faEye,
+    faEyeSlash,
+    faLock,
+    faUnlock,
+} from '@fortawesome/free-solid-svg-icons';
 import { Toolbox } from '../toolbox';
 import './layer-toolbox.scss';
 import {
@@ -12,15 +18,20 @@ import {
 export class LayerToolbox extends Toolbox {
     protected readonly title = 'Layers';
 
+    private planId: string | undefined;
+
     private readonly addIcon = icon(faAdd);
     private readonly eyeIcon = icon(faEye);
-    private readonly lockOpenIcon = icon(faLockOpen);
+    private readonly eyeSlashIcon = icon(faEyeSlash);
+    private readonly lockIcon = icon(faLock);
+    private readonly unlockIcon = icon(faUnlock);
 
     public constructor(
         private readonly controller: PlanController,
         private readonly viewModel: ViewModel
     ) {
         super();
+        this.planId = this.viewModel.plans.at(0)?.id;
     }
 
     public createElement(): HTMLElement {
@@ -46,6 +57,8 @@ export class LayerToolbox extends Toolbox {
         // Set viewModel update callback
         this.viewModel.onChange(
             (_viewModel: ViewModel, _newValues: Partial<ViewModel>) => {
+                this.planId = this.viewModel.plans.at(0)?.id;
+
                 // Reset the layer list
                 layerListElement.innerHTML = '';
 
@@ -81,7 +94,9 @@ export class LayerToolbox extends Toolbox {
 
         // Create an item element for each item in the layer
         layerVM.children.forEach((itemVM) => {
-            layerListElement.appendChild(this.createItemElement(itemVM));
+            layerListElement.appendChild(
+                this.createItemElement(itemVM, layerVM.id)
+            );
         });
 
         layer.appendChild(layerListElement);
@@ -90,7 +105,10 @@ export class LayerToolbox extends Toolbox {
         return element;
     }
 
-    private createItemElement(itemVM: ItemViewModel): HTMLElement {
+    private createItemElement(
+        itemVM: ItemViewModel,
+        layerId: string
+    ): HTMLElement {
         const element = document.createElement('li');
         element.classList.add('layer-item');
 
@@ -100,23 +118,53 @@ export class LayerToolbox extends Toolbox {
         itemElement.classList.add('disable-select');
 
         element.appendChild(itemElement);
-        this.addIcons(element);
+        this.addIcons(element, itemVM, layerId);
 
         return element;
     }
 
-    private addIcons(element: HTMLElement): HTMLElement {
+    private addIcons(
+        element: HTMLElement,
+        itemVM: ItemViewModel,
+        layerId: string
+    ): HTMLElement {
         const iconsContainer = document.createElement('div');
         iconsContainer.classList.add('icons-container');
 
         const showButtonElement = document.createElement('button');
         showButtonElement.classList.add('item-button');
-        showButtonElement.appendChild(this.eyeIcon.node[0]);
+        showButtonElement.appendChild(
+            itemVM.visible ? this.eyeIcon.node[0] : this.eyeSlashIcon.node[0]
+        );
+        showButtonElement.setAttribute(
+            'aria-checked',
+            (!itemVM.visible).toString()
+        );
+        showButtonElement.onclick = () => {
+            this.controller.updateItem(
+                { ...itemVM, visible: !itemVM.visible },
+                this.planId!,
+                layerId
+            );
+        };
         iconsContainer.appendChild(showButtonElement);
 
         const lockButtonElement = document.createElement('button');
         lockButtonElement.classList.add('item-button');
-        lockButtonElement.appendChild(this.lockOpenIcon.node[0]);
+        lockButtonElement.appendChild(
+            itemVM.locked ? this.lockIcon.node[0] : this.unlockIcon.node[0]
+        );
+        lockButtonElement.setAttribute(
+            'aria-checked',
+            itemVM.locked.toString()
+        );
+        lockButtonElement.onclick = () => {
+            this.controller.updateItem(
+                { ...itemVM, locked: !itemVM.locked },
+                this.planId!,
+                layerId
+            );
+        };
         iconsContainer.appendChild(lockButtonElement);
 
         element.appendChild(iconsContainer);

@@ -52,7 +52,7 @@ export class App {
 
         const toolbar = Toolbar.create(element);
 
-        toolbar.addTool(new MoveTool());
+        toolbar.addTool(new MoveTool(this.planFactory.controller));
         toolbar.addTool(
             new FillTool(colorToolbox, this.planFactory.controller)
         );

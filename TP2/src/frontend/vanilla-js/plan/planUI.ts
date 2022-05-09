@@ -19,6 +19,8 @@ export class PlanUI {
     }
 
     private build(viewModel: ViewModel): void {
+        const planId = viewModel.plans.at(0)?.id;
+
         // Reset paper plan
         paper.project.clear();
 
@@ -31,14 +33,14 @@ export class PlanUI {
                     case 'rectangle':
                         shape = i.shape as Rectangle;
                         item = new paper.Path.Rectangle(
-                            new paper.Point(shape.x, shape.y),
+                            new paper.Point(i.position.x, i.position.y),
                             new paper.Size(shape.width, shape.height)
                         );
                         break;
                     case 'circle':
                         shape = i.shape as Circle;
                         item = new paper.Path.Circle(
-                            new paper.Point(shape.x, shape.y),
+                            new paper.Point(i.position.x, i.position.y),
                             shape.radius
                         );
                         break;
@@ -61,10 +63,14 @@ export class PlanUI {
                 item.strokeWidth = 5;
                 item.strokeColor = new paper.Color(i.strokecolor ?? '#27ae60');
                 item.selected = false;
+                item.locked = i.locked;
+                item.visible = i.visible;
                 item.data = {
                     isGrouped: true,
                     isDomainItem: true,
                     showSelected: true,
+                    planId: planId,
+                    layerId: l.id,
                     ...i,
                 };
 
@@ -75,6 +81,8 @@ export class PlanUI {
                 textItem.fontWeight = 'bold';
                 textItem.fillColor = new paper.Color(i.strokecolor);
                 textItem.fillColor.lightness *= 0.8;
+                textItem.locked = i.locked;
+                textItem.visible = i.visible;
                 textItem.data = {
                     isGrouped: true,
                     isDomainItem: false,

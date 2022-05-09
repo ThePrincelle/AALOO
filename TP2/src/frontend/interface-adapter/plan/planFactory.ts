@@ -6,6 +6,7 @@ import {
     LoadPlan,
     PlanRepositoryInterface,
     SavePlan,
+    UpdateItem,
     UpdatePlan,
 } from '../../../domain/usecases';
 import { PlanController } from './planController';
@@ -35,7 +36,10 @@ export class PlanFactory {
                     new GetPlans(this.planRepository),
                     new LoadPlan(this.planRepository),
                     new SavePlan(this.planRepository),
-                    new UpdatePlan(this.planRepository)
+                    new UpdatePlan(this.planRepository),
+
+                    this.presenter,
+                    new UpdateItem(this.planRepository)
                 )
         );
     }
