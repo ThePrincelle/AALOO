@@ -8,8 +8,6 @@ export class Rectangle implements _Shape {
     public type: string = 'rectangle';
 
     public constructor(
-        public readonly x: number,
-        public readonly y: number,
         public readonly width: number,
         public readonly height: number
     ) {}
@@ -18,11 +16,7 @@ export class Rectangle implements _Shape {
 export class Circle implements _Shape {
     public type: string = 'circle';
 
-    public constructor(
-        public readonly x: number,
-        public readonly y: number,
-        public readonly radius: number
-    ) {}
+    public constructor(public readonly radius: number) {}
 }
 
 export class Path implements _Shape {

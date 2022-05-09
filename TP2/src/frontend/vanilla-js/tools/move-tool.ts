@@ -1,6 +1,8 @@
 import { icon } from '@fortawesome/fontawesome-svg-core';
 import { faArrowPointer } from '@fortawesome/free-solid-svg-icons';
 import * as paper from 'paper';
+import { Item } from '../../../domain/model';
+import { PlanController } from '../../interface-adapter';
 import { PaperTool } from '../toolbar';
 
 export class MoveTool extends PaperTool {
@@ -9,8 +11,9 @@ export class MoveTool extends PaperTool {
     public readonly icon = icon(faArrowPointer);
 
     private selectedItem?: paper.Item;
+    private downPoint?: paper.Point;
 
-    public constructor() {
+    public constructor(private readonly controller: PlanController) {
         super();
 
         this.paperTool.onMouseDown = this.onMouseDown.bind(this);
@@ -32,6 +35,7 @@ export class MoveTool extends PaperTool {
     }
 
     public onMouseDown(event: paper.ToolEvent): void {
+        this.downPoint = event.downPoint;
         const hit = paper.project.activeLayer.hitTest(event.downPoint);
 
         if (hit?.item) {
@@ -44,6 +48,8 @@ export class MoveTool extends PaperTool {
                 item = hit.item.parent;
             }
             this.selectedItem = item;
+
+            if (this.selectedItem.data.locked == false) return;
 
             // Only set the selected property to the items that shows
             // a selected state
@@ -66,7 +72,23 @@ export class MoveTool extends PaperTool {
 
     public onMouseUp(event: paper.ToolEvent): void {
         if (this.selectedItem && !event.point.equals(event.lastPoint)) {
-            // TODO: update controller, add command to history (undo/redo)
+            this.selectedItem.children.forEach((child) => {
+                if (child.matches({ data: { isDomainItem: true } })) {
+                    const newPosition = {
+                        x:
+                            child.data.position.x +
+                            (event.point.x - this.downPoint!.x),
+                        y:
+                            child.data.position.y +
+                            (event.point.y - this.downPoint!.y),
+                    };
+                    this.controller.updateItem(
+                        { ...child.data, position: newPosition } as Item,
+                        child.data.planId,
+                        child.data.layerId
+                    );
+                }
+            });
         }
     }
 }

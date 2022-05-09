@@ -73,13 +73,13 @@ export class Item {
 
         switch (type) {
             case ItemType.Layer:
-                shape = new Rectangle(0, 0, 0, 0);
+                shape = new Rectangle(0, 0);
                 break;
             case ItemType.Zone:
-                shape = new Rectangle(0, 0, 200, 200);
+                shape = new Rectangle(200, 200);
                 break;
             case ItemType.Foundation:
-                shape = new Rectangle(0, 0, 500, 500);
+                shape = new Rectangle(500, 500);
                 fillColor = '#3498db';
                 strokeColor = '#3498db';
                 break;
@@ -91,7 +91,7 @@ export class Item {
             case ItemType.Furniture:
             case ItemType.Hangable:
             case ItemType.Staircase:
-                shape = new Rectangle(100, 100, 100, 100);
+                shape = new Rectangle(100, 100);
                 fillColor = '#95a5a6';
                 strokeColor = '#95a5a6';
                 break;

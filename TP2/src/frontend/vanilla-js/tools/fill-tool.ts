@@ -1,6 +1,7 @@
 import { icon } from '@fortawesome/fontawesome-svg-core';
 import { faFillDrip } from '@fortawesome/free-solid-svg-icons';
 import * as paper from 'paper';
+import { Item } from '../../../domain/model';
 import { PlanController } from '../../interface-adapter';
 import { PaperTool } from '../toolbar';
 import { ColorToolbox } from '../toolboxes';
@@ -42,20 +43,14 @@ export class FillTool extends PaperTool {
 
             item.children.forEach((child) => {
                 if (child.matches({ data: { isDomainItem: true } })) {
-                    child.data.fillColor = this.colorToolbox.currentPaperColor;
-                    child.data.strokeColor =
+                    child.data.fillcolor = this.colorToolbox.currentPaperColor;
+                    child.data.strokecolor =
                         this.colorToolbox.currentPaperColor;
-                    this.controller; // TODO: updateItem
-                    // this.controller.updateItem(child.data as Item);
-                }
-
-                if (child.matches({ data: { showSelected: true } })) {
-                    child.fillColor = this.colorToolbox.currentPaperColor;
-                    child.fillColor.lightness *= 1.2;
-                    child.strokeColor = this.colorToolbox.currentPaperColor;
-                } else {
-                    child.fillColor = this.colorToolbox.currentPaperColor;
-                    child.fillColor.lightness *= 0.8;
+                    this.controller.updateItem(
+                        child.data as Item,
+                        child.data.planId,
+                        child.data.layerId
+                    );
                 }
             });
         }

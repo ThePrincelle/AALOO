@@ -1,4 +1,4 @@
-import { Plan } from '../../../domain/model';
+import { Item, Plan } from '../../../domain/model';
 import {
     CreatePlan,
     CreatePlanPresenterInterface,
@@ -17,6 +17,9 @@ import {
     SavePlan,
     SavePlanPresenterInterface,
     SavePlanRequest,
+    UpdateItem,
+    UpdateItemPresenterInterface,
+    UpdateItemRequest,
     UpdatePlan,
     UpdatePlanPresenterInterface,
     UpdatePlanRequest,
@@ -38,7 +41,10 @@ export class PlanController {
         private readonly getPlansService: GetPlans,
         private readonly loadPlanService: LoadPlan,
         private readonly savePlanService: SavePlan,
-        private readonly updatePlanService: UpdatePlan
+        private readonly updatePlanService: UpdatePlan,
+
+        private readonly updateItemPresenter: UpdateItemPresenterInterface,
+        private readonly updateItemService: UpdateItem
     ) {}
 
     public async createPlan(name: string): Promise<void> {
@@ -84,6 +90,17 @@ export class PlanController {
         await this.updatePlanService.execute(
             new UpdatePlanRequest(plan),
             this.updatePlanPresenter
+        );
+    }
+
+    public async updateItem(
+        item: Item,
+        planId: string,
+        layerId: string
+    ): Promise<void> {
+        await this.updateItemService.execute(
+            new UpdateItemRequest(item, planId, layerId),
+            this.updateItemPresenter
         );
     }
 }
