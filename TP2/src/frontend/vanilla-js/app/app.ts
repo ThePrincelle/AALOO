@@ -28,7 +28,11 @@ export class App {
         this.initializePaper();
         this.initializePlan();
 
-        Statusbar.create(element, this.planFactory.viewModel);
+        Statusbar.create(
+            element,
+            this.planFactory.controller,
+            this.planFactory.viewModel
+        );
 
         const colorToolbox = new ColorToolbox();
         const pathToolbox = new PathToolbox();

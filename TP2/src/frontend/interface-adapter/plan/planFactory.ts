@@ -8,6 +8,12 @@ import {
     SavePlan,
     UpdateItem,
     UpdatePlan,
+    CanUndoRedo,
+    UndoAction,
+    RedoAction,
+    HistoryRepositoryInterface,
+    AddAction,
+    ClearHistory,
 } from '../../../domain/usecases';
 import { PlanController } from './planController';
 import { PlanUIPresenter } from './planUIPresenter';
@@ -16,7 +22,10 @@ import { ViewModel } from './viewModel';
 export class PlanFactory {
     private instances: any = {};
 
-    constructor(private readonly planRepository: PlanRepositoryInterface) {}
+    constructor(
+        private readonly planRepository: PlanRepositoryInterface,
+        private readonly historyRepository: HistoryRepositoryInterface
+    ) {}
 
     get controller() {
         return this.reuseOrInstantiate(
@@ -30,16 +39,27 @@ export class PlanFactory {
                     this.presenter,
                     this.presenter,
                     this.presenter,
-                    new CreatePlan(this.planRepository),
-                    new DeletePlan(this.planRepository),
+                    new CreatePlan(this.planRepository, this.historyRepository),
+                    new DeletePlan(this.planRepository, this.historyRepository),
                     new GetPlan(this.planRepository),
                     new GetPlans(this.planRepository),
-                    new LoadPlan(this.planRepository),
+                    new LoadPlan(this.planRepository, this.historyRepository),
                     new SavePlan(this.planRepository),
-                    new UpdatePlan(this.planRepository),
+                    new UpdatePlan(this.planRepository, this.historyRepository),
 
                     this.presenter,
-                    new UpdateItem(this.planRepository)
+                    new UpdateItem(this.planRepository, this.historyRepository),
+
+                    this.presenter,
+                    this.presenter,
+                    this.presenter,
+                    this.presenter,
+                    this.presenter,
+                    new CanUndoRedo(this.historyRepository),
+                    new AddAction(this.historyRepository),
+                    new UndoAction(this.historyRepository),
+                    new RedoAction(this.historyRepository),
+                    new ClearHistory(this.historyRepository)
                 )
         );
     }

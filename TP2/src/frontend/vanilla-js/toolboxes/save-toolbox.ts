@@ -43,11 +43,11 @@ export class SaveToolbox extends Toolbox {
 
     private savePlan(): void {
         if (this.viewModel.plans.length > 0)
-            this.controller.savePlan(this.viewModel.toModel().at(0)!);
+            this.controller.savePlan(this.viewModel.activePlan!.toModel());
     }
 
     private restorePlan(): void {
         if (this.viewModel.plans.length > 0)
-            this.controller.loadPlan(this.viewModel.plans.at(0)!.id);
+            this.controller.loadPlan(this.viewModel.activePlan!.id);
     }
 }

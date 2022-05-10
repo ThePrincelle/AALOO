@@ -16,6 +16,16 @@ import {
     UpdatePlanResponse,
     UpdateItemPresenterInterface,
     UpdateItemResponse,
+    CanUndoRedoPresenterInterface,
+    CanUndoRedoResponse,
+    UndoActionPresenterInterface,
+    UndoActionResponse,
+    AddActionPresenterInterface,
+    AddActionResponse,
+    RedoActionPresenterInterface,
+    RedoActionResponse,
+    ClearHistoryPresenterInterface,
+    ClearHistoryResponse,
 } from '../../../domain/usecases';
 import {
     LayerViewModel,
@@ -33,10 +43,16 @@ export class PlanUIPresenter
         LoadPlanPresenterInterface,
         SavePlanPresenterInterface,
         UpdatePlanPresenterInterface,
-        UpdateItemPresenterInterface
+        UpdateItemPresenterInterface,
+        CanUndoRedoPresenterInterface,
+        AddActionPresenterInterface,
+        UndoActionPresenterInterface,
+        RedoActionPresenterInterface,
+        ClearHistoryPresenterInterface
 {
     private _viewModel = new ViewModel();
     private _plans: Plan[] = [];
+    private _activePlan: Plan | undefined = undefined;
 
     get viewModel(): ViewModel {
         return this._viewModel;
@@ -48,6 +64,7 @@ export class PlanUIPresenter
 
     public presentCreatePlan(response: CreatePlanResponse): void {
         this._plans = [...this._plans, response.plan!];
+        this._activePlan = response.plan;
         this.updateViewPlans();
     }
 
@@ -58,6 +75,7 @@ export class PlanUIPresenter
         if (index !== -1) {
             this._plans.splice(index, 1);
         }
+        this._activePlan = undefined;
         this.updateViewPlans();
     }
 
@@ -68,11 +86,13 @@ export class PlanUIPresenter
         } else {
             this._plans[index] = response.plan!;
         }
+        this._activePlan = response.plan;
         this.updateViewPlans();
     }
 
     public presentGetPlans(response: GetPlansResponse): void {
         this._plans = response.plans;
+        this._activePlan = response.plans[0];
         this.updateViewPlans();
     }
 
@@ -82,8 +102,10 @@ export class PlanUIPresenter
         this.presentGetPlan(res);
     }
 
-    public presentSavePlan(_response: SavePlanResponse): void {
-        this.updateViewPlans();
+    public presentSavePlan(response: SavePlanResponse): void {
+        const res = new GetPlanResponse();
+        res.plan = response.savedPlan;
+        this.presentGetPlan(res);
     }
 
     public presentUpdatePlan(response: UpdatePlanResponse): void {
@@ -111,39 +133,69 @@ export class PlanUIPresenter
         this.updateViewPlans();
     }
 
-    private updateViewPlans(): void {
+    public presentCanUndoRedo(response: CanUndoRedoResponse): void {
         this.viewModel.update({
-            plans: this._plans.map(
-                (plan) =>
-                    new PlanViewModel(
-                        plan.id,
-                        plan.name,
-                        plan.layers.map(
-                            (layer) =>
-                                new LayerViewModel(
-                                    layer.id,
-                                    layer.name,
-                                    layer.children.map(
-                                        (item) =>
-                                            new ItemViewModel(
-                                                item.id,
-                                                item.type,
-                                                item.name,
-                                                item.shape,
-                                                item.fillcolor,
-                                                item.strokecolor,
-                                                item.strokeWidth,
-                                                item.locked,
-                                                item.visible,
-                                                item.position,
-                                                item.rotation,
-                                                item.scale
-                                            )
-                                    )
+            canUndo: response.canUndo,
+            canRedo: response.canRedo,
+        });
+    }
+
+    public presentAddAction(_: AddActionResponse): void {
+        return;
+    }
+
+    public presentUndoAction(response: UndoActionResponse): void {
+        const res = new GetPlanResponse();
+        res.plan = response.updatedPlan;
+        this.presentGetPlan(res);
+    }
+
+    public presentRedoAction(response: RedoActionResponse): void {
+        const res = new GetPlanResponse();
+        res.plan = response.updatedPlan;
+        this.presentGetPlan(res);
+    }
+
+    public presentClearHistory(_: ClearHistoryResponse): void {
+        return;
+    }
+
+    private updateViewPlans(): void {
+        const plans = this._plans.map(
+            (plan) =>
+                new PlanViewModel(
+                    plan.id,
+                    plan.name,
+                    plan.layers.map(
+                        (layer) =>
+                            new LayerViewModel(
+                                layer.id,
+                                layer.name,
+                                layer.children.map(
+                                    (item) =>
+                                        new ItemViewModel(
+                                            item.id,
+                                            item.type,
+                                            item.name,
+                                            item.shape,
+                                            item.fillcolor,
+                                            item.strokecolor,
+                                            item.strokeWidth,
+                                            item.position,
+                                            item.locked,
+                                            item.visible,
+                                            item.rotation,
+                                            item.scale
+                                        )
                                 )
-                        )
+                            )
                     )
-            ),
+                )
+        );
+
+        this.viewModel.update({
+            activePlan: plans.find((p) => p.id == this._activePlan!.id),
+            plans: plans,
         });
     }
 }
