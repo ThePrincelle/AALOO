@@ -34,9 +34,6 @@ export class UpdateItem {
             return;
         }
 
-        // Add to history
-        await this.historyrepository.add({ ...plan });
-
         // Check if item exists
         const itemIndex = plan.layers[layerIndex].children.findIndex(
             (i) => i.id === request.item.id
@@ -51,6 +48,9 @@ export class UpdateItem {
         response.updatedItem = request.item;
         response.planId = request.planId;
         response.layerId = request.layerId;
+
+        // Add to history
+        await this.historyrepository.add(plan);
 
         presenter.presentUpdateItem(response);
     }

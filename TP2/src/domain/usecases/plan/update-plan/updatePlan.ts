@@ -16,15 +16,11 @@ export class UpdatePlan {
     ) {
         const response = new UpdatePlanResponse();
 
-        const oldPlan = await this.repository.get(request.plan.id);
-
-        if (oldPlan) {
-            // Add to history
-            await this.historyrepository.add({ ...oldPlan });
-        }
-
         await this.repository.update(request.plan);
         response.updatedPlan = request.plan;
+
+        // Add to history
+        await this.historyrepository.add(request.plan);
 
         presenter.presentUpdatePlan(response);
     }

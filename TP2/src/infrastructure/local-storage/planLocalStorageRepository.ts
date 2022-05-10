@@ -32,7 +32,7 @@ export class PlanLocalStorageRepository implements PlanRepositoryInterface {
         if (index !== -1) {
             throw new Error(`Plan '${plan.name} (${plan.id})' already exists`);
         }
-        this.plans.push(plan);
+        this.plans.push(JSON.parse(JSON.stringify(plan)));
         this.saveList(this.plans);
     }
 
@@ -49,7 +49,7 @@ export class PlanLocalStorageRepository implements PlanRepositoryInterface {
         let plan = this.plans.find((p) => p.id === planId);
         plan = plan ?? (await this.load(planId));
 
-        return plan;
+        return JSON.parse(JSON.stringify(plan));
     }
 
     /** @inheritdoc */
@@ -61,7 +61,7 @@ export class PlanLocalStorageRepository implements PlanRepositoryInterface {
             await this.create(new Plan(id));
         }
 
-        return this.plans;
+        return JSON.parse(JSON.stringify(this.plans));
     }
 
     /**
@@ -70,6 +70,7 @@ export class PlanLocalStorageRepository implements PlanRepositoryInterface {
      * @param plan The plan to update.
      */
     public async update(plan: Plan): Promise<void> {
+        plan = JSON.parse(JSON.stringify(plan));
         this.plans = this.getList();
         const index = this.plans.findIndex((p) => p.id === plan.id);
         if (index === -1) {
@@ -114,7 +115,7 @@ export class PlanLocalStorageRepository implements PlanRepositoryInterface {
         this.plans = this.getList();
         const plan = this.plans.find((p) => p.id === planId);
 
-        return plan;
+        return JSON.parse(JSON.stringify(plan));
     }
 
     //#endregion
