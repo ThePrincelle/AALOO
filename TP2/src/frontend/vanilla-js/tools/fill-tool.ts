@@ -43,9 +43,10 @@ export class FillTool extends PaperTool {
 
             item.children.forEach((child) => {
                 if (child.matches({ data: { isDomainItem: true } })) {
-                    child.data.fillcolor = this.colorToolbox.currentPaperColor;
+                    child.data.fillcolor =
+                        this.colorToolbox.currentPaperColor.toCSS(true);
                     child.data.strokecolor =
-                        this.colorToolbox.currentPaperColor;
+                        this.colorToolbox.currentPaperColor.toCSS(true);
                     this.controller.updateItem(
                         child.data as Item,
                         child.data.planId,
