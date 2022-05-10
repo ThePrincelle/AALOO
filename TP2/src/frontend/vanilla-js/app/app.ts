@@ -1,6 +1,6 @@
 import * as paper from 'paper';
 import { PlanUI } from '../plan';
-import { Statusbar } from '../statusbar';
+import { StatusbarContainer } from '../statusbar';
 import { Toolbar } from '../toolbar';
 import { ToolboxesContainer } from '../toolbox';
 import {
@@ -13,6 +13,11 @@ import { FillTool, MoveTool, PathTool } from '../tools';
 import './app.scss';
 
 import { planFactory, PlanFactory } from '../../interface-adapter';
+import {
+    RedoActionBtn,
+    SaveActionBtn,
+    UndoActionBtn,
+} from '../statusbar-actions';
 
 export class App {
     public static create(host: HTMLElement): App {
@@ -28,10 +33,29 @@ export class App {
         this.initializePaper();
         this.initializePlan();
 
-        Statusbar.create(
+        const statusbarContainer = StatusbarContainer.create(
             element,
             this.planFactory.controller,
             this.planFactory.viewModel
+        );
+
+        statusbarContainer.addLeadingAction(
+            new SaveActionBtn(
+                this.planFactory.controller,
+                this.planFactory.viewModel
+            )
+        );
+        statusbarContainer.addLeadingAction(
+            new UndoActionBtn(
+                this.planFactory.controller,
+                this.planFactory.viewModel
+            )
+        );
+        statusbarContainer.addLeadingAction(
+            new RedoActionBtn(
+                this.planFactory.controller,
+                this.planFactory.viewModel
+            )
         );
 
         const colorToolbox = new ColorToolbox();
