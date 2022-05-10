@@ -18,8 +18,6 @@ import {
 export class LayerToolbox extends Toolbox {
     protected readonly title = 'Layers';
 
-    private planId: string | undefined;
-
     private readonly addIcon = icon(faAdd);
     private readonly eyeIcon = icon(faEye);
     private readonly eyeSlashIcon = icon(faEyeSlash);
@@ -31,7 +29,6 @@ export class LayerToolbox extends Toolbox {
         private readonly viewModel: ViewModel
     ) {
         super();
-        this.planId = this.viewModel.plans.at(0)?.id;
     }
 
     public createElement(): HTMLElement {
@@ -57,13 +54,11 @@ export class LayerToolbox extends Toolbox {
         // Set viewModel update callback
         this.viewModel.onChange(
             (_viewModel: ViewModel, _newValues: Partial<ViewModel>) => {
-                this.planId = this.viewModel.plans.at(0)?.id;
-
                 // Reset the layer list
                 layerListElement.innerHTML = '';
 
                 // Create a layer drawer for each layer
-                this.viewModel?.plans.at(0)?.layers.forEach((layer) => {
+                this.viewModel?.activePlan?.layers.forEach((layer) => {
                     layerListElement.appendChild(this.createLayerDrawer(layer));
                 });
             }
@@ -143,7 +138,7 @@ export class LayerToolbox extends Toolbox {
         showButtonElement.onclick = () => {
             this.controller.updateItem(
                 { ...itemVM, visible: !itemVM.visible },
-                this.planId!,
+                this.viewModel.activePlan!.id,
                 layerId
             );
         };
@@ -161,7 +156,7 @@ export class LayerToolbox extends Toolbox {
         lockButtonElement.onclick = () => {
             this.controller.updateItem(
                 { ...itemVM, locked: !itemVM.locked },
-                this.planId!,
+                this.viewModel.activePlan!.id,
                 layerId
             );
         };

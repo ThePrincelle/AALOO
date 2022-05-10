@@ -1,10 +1,14 @@
+import { HistoryRepositoryInterface } from '../../action-history';
 import { PlanRepositoryInterface } from '../../plan/planRepositoryInterface';
 import { UpdateItemPresenterInterface } from './updateItemPresenterInterface';
 import { UpdateItemRequest } from './updateItemRequest';
 import { UpdateItemResponse } from './updateItemResponse';
 
 export class UpdateItem {
-    constructor(private repository: PlanRepositoryInterface) {}
+    constructor(
+        private repository: PlanRepositoryInterface,
+        private historyrepository: HistoryRepositoryInterface
+    ) {}
 
     async execute(
         request: UpdateItemRequest,
@@ -29,6 +33,9 @@ export class UpdateItem {
             presenter.presentUpdateItem(response);
             return;
         }
+
+        // Add to history
+        await this.historyrepository.add({ ...plan });
 
         // Check if item exists
         const itemIndex = plan.layers[layerIndex].children.findIndex(

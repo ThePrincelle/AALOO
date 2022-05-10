@@ -2,6 +2,7 @@ import * as paper from 'paper';
 import { Circle, Path, Rectangle, Shape } from '../../../domain/model/shape';
 import { ViewModel } from '../../interface-adapter';
 import { PlanFactory } from '../../interface-adapter/plan/planFactory';
+import { ItemViewModel } from '../../interface-adapter/plan/viewModel';
 
 export class PlanUI {
     constructor(private readonly planFactory: PlanFactory) {
@@ -19,13 +20,13 @@ export class PlanUI {
     }
 
     private build(viewModel: ViewModel): void {
-        const planId = viewModel.plans.at(0)?.id;
+        const planId = viewModel.activePlan?.id;
 
         // Reset paper plan
         paper.project.clear();
 
         // Draw paper elements
-        viewModel.plans.at(0)?.layers.map((l) => {
+        viewModel.activePlan?.layers.map((l) => {
             l.children.map((i) => {
                 let shape: Shape;
                 let item: paper.Item;
@@ -74,10 +75,9 @@ export class PlanUI {
                     ...i,
                 };
 
-                const textItem = new paper.PointText(
-                    item.bounds.bottomLeft.add(new paper.Point(5, -5))
-                );
+                const textItem = new paper.PointText(item.bounds.bottomCenter);
                 textItem.content = i.name;
+                textItem.position = this.updateTextPosition(textItem, item, i);
                 textItem.fontWeight = 'bold';
                 textItem.fillColor = new paper.Color(i.strokecolor);
                 textItem.fillColor.lightness *= 0.8;
@@ -95,5 +95,22 @@ export class PlanUI {
                 return group;
             });
         });
+    }
+
+    private updateTextPosition(
+        textItem: paper.Item,
+        item: paper.Item,
+        i: ItemViewModel
+    ): paper.Point {
+        const xDelta = -textItem.bounds.width / 2;
+        const yDelta =
+            i.shape.type == 'circle'
+                ? -(
+                      textItem.bounds.height +
+                      (item.bounds.center.y - item.bounds.topCenter.y)
+                  ) / 2
+                : -10;
+
+        return textItem.position.add(new paper.Point(xDelta, yDelta));
     }
 }

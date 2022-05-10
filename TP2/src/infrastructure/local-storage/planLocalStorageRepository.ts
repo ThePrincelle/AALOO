@@ -55,6 +55,12 @@ export class PlanLocalStorageRepository implements PlanRepositoryInterface {
     /** @inheritdoc */
     public async getAll(): Promise<Plan[]> {
         this.plans = this.getList();
+
+        if (this.plans.length === 0) {
+            const id = await this.nextId();
+            await this.create(new Plan(id));
+        }
+
         return this.plans;
     }
 

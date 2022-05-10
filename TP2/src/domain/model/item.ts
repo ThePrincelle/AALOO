@@ -2,7 +2,6 @@ import { Point } from './point';
 import { Path, Rectangle, Shape } from './shape';
 
 export enum ItemType {
-    Layer = 'layer',
     Zone = 'zone',
     Foundation = 'foundation',
     Wall = 'wall',
@@ -22,7 +21,8 @@ export class Item {
         shape: Shape,
         fillcolor: string,
         strokecolor: string,
-        strokeWidth: number
+        strokeWidth: number,
+        position: Point
     );
     public constructor(
         id: string,
@@ -32,9 +32,9 @@ export class Item {
         fillcolor: string,
         strokecolor: string,
         strokeWidth: number,
+        position: Point,
         locked: boolean,
         visible: boolean,
-        position: Point,
         rotation: number,
         scale: number
     );
@@ -48,11 +48,11 @@ export class Item {
         public readonly strokecolor: string = '#000000',
         public readonly strokeWidth: number = 1.0,
 
+        public readonly position: Point = new Point(0, 0),
         public readonly locked: boolean = false,
         public readonly visible: boolean = true,
         // public readonly opacity: number = 1.0,
         // public readonly selected: boolean = false,
-        public readonly position: Point = new Point(0, 0),
         public readonly rotation: number = 0.0,
         public readonly scale: number = 1.0
     ) {}
@@ -65,33 +65,41 @@ export class Item {
      * @param name Item name.
      * @returns {Item} New item.
      */
-    public static create(id: string, type: ItemType, name: string): Item {
-        let shape: Shape;
+    public static create(
+        id: string,
+        type: ItemType,
+        name: string,
+        position?: Point,
+        shape?: Shape
+    ): Item {
         let fillColor: string = '#ffffff';
         let strokeColor: string = '#000000';
         let strokeWidth: number = 1.0;
 
         switch (type) {
-            case ItemType.Layer:
-                shape = new Rectangle(0, 0);
-                break;
             case ItemType.Zone:
-                shape = new Rectangle(200, 200);
+                shape = shape ?? new Rectangle(200, 200);
                 break;
             case ItemType.Foundation:
-                shape = new Rectangle(500, 500);
+                shape = shape ?? new Rectangle(500, 500);
                 fillColor = '#3498db';
                 strokeColor = '#3498db';
                 break;
             case ItemType.Wall:
             case ItemType.Window:
             case ItemType.Door:
-                shape = new Path([new Point(0, 0), new Point(0, 100)], false);
+                shape =
+                    shape ??
+                    new Path([new Point(0, 0), new Point(0, 100)], false);
+                break;
+            case ItemType.Hangable:
+                shape = shape ?? new Rectangle(50, 50);
+                fillColor = '#f39c12';
+                strokeColor = '#f39c12';
                 break;
             case ItemType.Furniture:
-            case ItemType.Hangable:
             case ItemType.Staircase:
-                shape = new Rectangle(100, 100);
+                shape = shape ?? new Rectangle(150, 100);
                 fillColor = '#95a5a6';
                 strokeColor = '#95a5a6';
                 break;
@@ -106,7 +114,8 @@ export class Item {
             shape,
             fillColor,
             strokeColor,
-            strokeWidth
+            strokeWidth,
+            position ?? new Point(0, 0)
         );
     }
 }

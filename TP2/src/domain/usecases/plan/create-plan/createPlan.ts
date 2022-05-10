@@ -1,11 +1,15 @@
 import { Plan } from '../../../model';
+import { HistoryRepositoryInterface } from '../../action-history';
 import { PlanRepositoryInterface } from '../planRepositoryInterface';
 import { CreatePlanPresenterInterface } from './createPlanPresenterInterface';
 import { CreatePlanRequest } from './createPlanRequest';
 import { CreatePlanResponse } from './createPlanResponse';
 
 export class CreatePlan {
-    constructor(private repository: PlanRepositoryInterface) {}
+    constructor(
+        private repository: PlanRepositoryInterface,
+        private historyrepository: HistoryRepositoryInterface
+    ) {}
 
     async execute(
         request: CreatePlanRequest,
@@ -24,6 +28,8 @@ export class CreatePlan {
         const plan = new Plan(id, request.name);
         await this.repository.create(plan);
         response.plan = plan;
+
+        await this.historyrepository.clear();
 
         presenter.presentCreatePlan(response);
     }

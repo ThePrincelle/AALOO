@@ -2,12 +2,46 @@
 
 .statusbar {
     display: flex;
+    column-gap: 2rem;
+    padding: 0 1.5rem;
     align-items: center;
     justify-content: center;
     background-color: vars.$color-slate;
     box-shadow: vars.$popup-box-shadow;
 
+    > .actions-list {
+        flex: 1;
+        display: flex;
+        column-gap: .125rem;
+
+        > .action-btn {
+            cursor: pointer;
+            color: vars.$color-text-light;
+            background-color: transparent;
+            border: none;
+            transition: all 50ms ease-in-out;
+            height: 1.75em;
+            width: 1.75em;
+            border-radius: 0.25rem;
+            font-size: 1.25em;
+
+            &:hover {
+                background-color: vars.$color-primary;
+            }
+
+            &:disabled {
+                cursor: not-allowed;
+                color: vars.$color-text-disabled;
+
+                &:hover {
+                    background-color: transparentize(vars.$color-text-disabled, 0.4);
+                }
+            }
+        }
+    }
+
     > .statusbar-title {
+        flex: 1;
         text-align: center;
         font-weight: bold;
         color: vars.$color-text-light;

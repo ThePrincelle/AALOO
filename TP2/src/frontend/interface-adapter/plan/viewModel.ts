@@ -6,6 +6,21 @@ export class PlanViewModel {
         public readonly name: string,
         public readonly layers: LayerViewModel[]
     ) {}
+
+    public toModel(): Plan {
+        return new Plan(
+            this.id,
+            this.name,
+            this.layers.map(
+                (l) =>
+                    new Layer(
+                        l.id,
+                        l.name,
+                        l.children.map((i) => i as Item)
+                    )
+            )
+        );
+    }
 }
 
 export class LayerViewModel {
@@ -19,7 +34,10 @@ export class LayerViewModel {
 export class ItemViewModel extends Item {}
 
 export class ViewModel {
+    public activePlan: PlanViewModel | undefined = undefined;
     public plans: PlanViewModel[] = [];
+    public canUndo: boolean = false;
+    public canRedo: boolean = false;
 
     private observers: ((
         viewModel: ViewModel,
@@ -35,39 +53,5 @@ export class ViewModel {
         callback: (viewModel: ViewModel, newValues: Partial<ViewModel>) => any
     ) {
         this.observers.push(callback);
-    }
-
-    public toModel(): Plan[] {
-        return this.plans.map(
-            (p) =>
-                new Plan(
-                    p.id,
-                    p.name,
-                    p.layers.map(
-                        (l) =>
-                            new Layer(
-                                l.id,
-                                l.name,
-                                l.children.map(
-                                    (i) =>
-                                        new Item(
-                                            i.id,
-                                            i.type,
-                                            i.name,
-                                            i.shape,
-                                            i.fillcolor,
-                                            i.strokecolor,
-                                            i.strokeWidth,
-                                            i.locked,
-                                            i.visible,
-                                            i.position,
-                                            i.rotation,
-                                            i.scale
-                                        )
-                                )
-                            )
-                    )
-                )
-        );
     }
 }
