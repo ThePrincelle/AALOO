@@ -10,7 +10,7 @@ export class HistoryCacheRepository implements HistoryRepositoryInterface {
         canRedo: boolean;
     }> {
         return {
-            canUndo: this.undoStack.length > 0,
+            canUndo: this.undoStack.length > 1,
             canRedo: this.redoStack.length > 0,
         };
     }
@@ -20,7 +20,7 @@ export class HistoryCacheRepository implements HistoryRepositoryInterface {
         if (plan) {
             this.redoStack.push(plan);
         }
-        return plan;
+        return JSON.parse(JSON.stringify(this.undoStack.at(-1)));
     }
 
     public async redo(): Promise<Plan | undefined> {
@@ -28,11 +28,11 @@ export class HistoryCacheRepository implements HistoryRepositoryInterface {
         if (plan) {
             this.undoStack.push(plan);
         }
-        return plan;
+        return JSON.parse(JSON.stringify(plan));
     }
 
     public async add(plan: Plan): Promise<void> {
-        this.undoStack.push(plan);
+        this.undoStack.push(JSON.parse(JSON.stringify(plan)));
         this.redoStack = [];
     }
 

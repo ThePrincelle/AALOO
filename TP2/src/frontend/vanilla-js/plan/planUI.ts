@@ -15,8 +15,11 @@ export class PlanUI {
         );
     }
 
-    public initialize(): void {
-        this.planFactory.controller.getPlans();
+    public async initialize(): Promise<void> {
+        await this.planFactory.controller.getPlans();
+        this.planFactory.controller.addAction(
+            this.planFactory.viewModel.activePlan!
+        );
     }
 
     private build(viewModel: ViewModel): void {

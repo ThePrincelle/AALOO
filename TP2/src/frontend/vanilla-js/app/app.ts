@@ -70,9 +70,9 @@ export class App {
         paper.setup(canvas);
     }
 
-    private initializePlan(): void {
+    private async initializePlan(): Promise<void> {
         const plan = new PlanUI(this.planFactory);
 
-        plan.initialize();
+        await plan.initialize();
     }
 }
