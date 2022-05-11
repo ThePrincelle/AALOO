@@ -47,7 +47,7 @@ export class DeleteItem {
         const item = plan.layers[layerIndex].children
             .splice(itemIndex, 1)
             .at(0);
-        await this.repository.save(plan);
+        await this.repository.update(plan);
         response.deletedItem = item;
         response.planId = request.planId;
         response.layerId = request.layerId;

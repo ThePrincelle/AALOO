@@ -201,7 +201,7 @@ export class CatalogToolbox extends Toolbox {
                         type: ItemType.Hangable,
                         name: 'Item',
                         shape: new Circle(25),
-                        fillcolor: '#f39c12',
+                        fillcolor: '#1abc9c',
                     },
                 },
             ],

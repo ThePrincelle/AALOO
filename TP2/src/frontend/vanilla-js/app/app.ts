@@ -33,6 +33,7 @@ export class App {
     ) {
         this.initializePaper();
         this.initializePlan();
+        this.initializeKeyboard();
 
         const statusbarContainer = StatusbarContainer.create(
             element,
@@ -106,5 +107,38 @@ export class App {
         const plan = new PlanUI(this.planFactory);
 
         await plan.initialize();
+    }
+
+    private initializeKeyboard(): void {
+        document.onkeydown = (e: KeyboardEvent) => {
+            var code = e.key;
+
+            if (!e.ctrlKey) return;
+
+            switch (code) {
+                case 's':
+                    this.planFactory.controller.savePlan(
+                        this.planFactory.viewModel.activePlan!
+                    );
+                    break;
+                case 'z':
+                    if (e.shiftKey) {
+                        this.planFactory.viewModel.canRedo &&
+                            this.planFactory.controller.redo();
+                    } else {
+                        this.planFactory.viewModel.canUndo &&
+                            this.planFactory.controller.undo();
+                    }
+                    break;
+                case 'y':
+                    this.planFactory.viewModel.canRedo &&
+                        this.planFactory.controller.redo();
+                    break;
+                default:
+                    break;
+            }
+
+            e.preventDefault();
+        };
     }
 }
