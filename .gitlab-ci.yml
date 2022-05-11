@@ -4,6 +4,9 @@ stages:
   - build
   - release
 
+variables:
+  RUNNER_PRE_CLONE_SCRIPT: 'cat /etc/resolv.conf | sed -r "s/^(search.*|options.*)/#\1/" > /tmp/resolv && cat /tmp/resolv > /etc/resolv.conf'
+
 diagrams-build:
   stage: build
   script:
