@@ -70,20 +70,20 @@ export class Item {
         type: ItemType,
         name: string,
         position?: Point,
-        shape?: Shape
+        shape?: Shape,
+        fillColor?: string,
+        strokeColor?: string
     ): Item {
-        let fillColor: string = '#ffffff';
-        let strokeColor: string = '#000000';
         let strokeWidth: number = 1.0;
 
         switch (type) {
             case ItemType.Zone:
-                shape = shape ?? new Rectangle(200, 200);
+                shape ??= new Rectangle(200, 200);
                 break;
             case ItemType.Foundation:
-                shape = shape ?? new Rectangle(500, 500);
-                fillColor = '#3498db';
-                strokeColor = '#3498db';
+                shape ??= new Rectangle(500, 500);
+                fillColor ??= '#3498db';
+                strokeColor ??= '#3498db';
                 break;
             case ItemType.Wall:
             case ItemType.Window:
@@ -93,19 +93,26 @@ export class Item {
                     new Path([new Point(0, 0), new Point(0, 100)], false);
                 break;
             case ItemType.Hangable:
-                shape = shape ?? new Rectangle(50, 50);
-                fillColor = '#f39c12';
-                strokeColor = '#f39c12';
+                shape ??= new Rectangle(50, 50);
+                fillColor ??= '#f39c12';
+                strokeColor ??= '#f39c12';
                 break;
             case ItemType.Furniture:
+                shape ??= new Rectangle(150, 100);
+                fillColor ??= '#8b4513';
+                strokeColor ??= '#8b4513';
+                break;
             case ItemType.Staircase:
-                shape = shape ?? new Rectangle(150, 100);
-                fillColor = '#95a5a6';
-                strokeColor = '#95a5a6';
+                shape ??= new Rectangle(150, 100);
+                fillColor ??= '#95a5a6';
+                strokeColor ??= '#95a5a6';
                 break;
             default:
                 throw new Error(`Unknown ItemType: ${type}`);
         }
+        fillColor ??= '#ffffff';
+        strokeColor ??= '#000000';
+        position ??= new Point(0, 0);
 
         return new Item(
             id,
@@ -115,7 +122,7 @@ export class Item {
             fillColor,
             strokeColor,
             strokeWidth,
-            position ?? new Point(0, 0)
+            position
         );
     }
 }

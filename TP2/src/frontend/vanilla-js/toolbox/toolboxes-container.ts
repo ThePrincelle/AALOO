@@ -2,10 +2,14 @@ import { Toolbox } from './toolbox';
 import './toolboxes-container.scss';
 
 export class ToolboxesContainer {
-    public static create(host: HTMLElement): ToolboxesContainer {
+    public static create(
+        host: HTMLElement,
+        isRightAligned: boolean
+    ): ToolboxesContainer {
         const element = document.createElement('div');
 
         element.classList.add('toolboxes-container');
+        element.classList.add(isRightAligned ? 'right' : 'left');
 
         host.appendChild(element);
 

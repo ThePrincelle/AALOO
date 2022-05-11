@@ -1,10 +1,14 @@
+import { HistoryRepositoryInterface } from '../../action-history';
 import { PlanRepositoryInterface } from '../../plan/planRepositoryInterface';
 import { DeleteItemPresenterInterface } from './deleteItemPresenterInterface';
 import { DeleteItemRequest } from './deleteItemRequest';
 import { DeleteItemResponse } from './deleteItemResponse';
 
 export class DeleteItem {
-    constructor(private repository: PlanRepositoryInterface) {}
+    constructor(
+        private repository: PlanRepositoryInterface,
+        private historyrepository: HistoryRepositoryInterface
+    ) {}
 
     async execute(
         request: DeleteItemRequest,
@@ -45,6 +49,11 @@ export class DeleteItem {
             .at(0);
         await this.repository.save(plan);
         response.deletedItem = item;
+        response.planId = request.planId;
+        response.layerId = request.layerId;
+
+        // Add to history
+        await this.historyrepository.add(plan);
 
         presenter.presentDeleteItem(response);
     }

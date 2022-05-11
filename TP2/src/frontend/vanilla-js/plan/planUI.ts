@@ -6,7 +6,7 @@ import { ItemViewModel } from '../../interface-adapter/plan/viewModel';
 
 export class PlanUI {
     constructor(private readonly planFactory: PlanFactory) {
-        paper.view.center = new paper.Point(200, 200);
+        paper.view.center = new paper.Point(0, 0);
 
         this.planFactory.viewModel.onChange(
             (viewModel: ViewModel, _newValues: Partial<ViewModel>) => {
@@ -52,10 +52,14 @@ export class PlanUI {
                     case 'polygon':
                         shape = i.shape as Path;
                         item = new paper.Path(
-                            shape.points.map(
-                                (p) =>
-                                    new paper.Segment(new paper.Point(p.x, p.y))
-                            )
+                            shape.points.map((p) => {
+                                return new paper.Segment(
+                                    new paper.Point(
+                                        i.position.x + p.x,
+                                        i.position.y + p.y
+                                    )
+                                );
+                            })
                         );
                         break;
                     default:

@@ -1,5 +1,7 @@
 [FontAwesome Free Icons](https://fontawesome.com/v6/search?m=free&s=solid)
 
+sign-hanging - hanged items
+
 box-open - open plan
 box-archive
 angle-down

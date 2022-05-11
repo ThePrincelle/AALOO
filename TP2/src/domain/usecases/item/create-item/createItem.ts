@@ -1,11 +1,15 @@
 import { Item } from '../../../model';
+import { HistoryRepositoryInterface } from '../../action-history';
 import { PlanRepositoryInterface } from '../../plan/planRepositoryInterface';
 import { CreateItemPresenterInterface } from './createItemPresenterInterface';
 import { CreateItemRequest } from './createItemRequest';
 import { CreateItemResponse } from './createItemResponse';
 
 export class CreateItem {
-    constructor(private repository: PlanRepositoryInterface) {}
+    constructor(
+        private repository: PlanRepositoryInterface,
+        private historyrepository: HistoryRepositoryInterface
+    ) {}
 
     async execute(
         request: CreateItemRequest,
@@ -39,11 +43,24 @@ export class CreateItem {
         }
 
         const id = request.id || (await this.repository.nextId());
-        const item = Item.create(id, request.itemType, request.name);
+        const item = Item.create(
+            id,
+            request.itemType,
+            request.name,
+            request.position,
+            request.shape,
+            request.color,
+            request.color
+        );
         plan.layers[layerIndex].children.push(item);
 
         await this.repository.update(plan);
         response.item = item;
+        response.planId = request.planId;
+        response.layerId = request.layerId;
+
+        // Add to history
+        await this.historyrepository.add(plan);
 
         presenter.presentCreateItem(response);
     }

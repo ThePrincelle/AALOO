@@ -14,6 +14,8 @@ import {
     HistoryRepositoryInterface,
     AddAction,
     ClearHistory,
+    CreateItem,
+    DeleteItem,
 } from '../../../domain/usecases';
 import { PlanController } from './planController';
 import { PlanUIPresenter } from './planUIPresenter';
@@ -48,7 +50,11 @@ export class PlanFactory {
                     new UpdatePlan(this.planRepository, this.historyRepository),
 
                     this.presenter,
+                    this.presenter,
+                    this.presenter,
                     new UpdateItem(this.planRepository, this.historyRepository),
+                    new CreateItem(this.planRepository, this.historyRepository),
+                    new DeleteItem(this.planRepository, this.historyRepository),
 
                     this.presenter,
                     this.presenter,
