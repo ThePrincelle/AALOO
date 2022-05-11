@@ -56,6 +56,24 @@ export class Plan {
                     '#2980b900',
                     '#2980b9'
                 ),
+                Item.create(
+                    '11',
+                    ItemType.Window,
+                    'Window',
+                    new Point(-250, -250),
+                    new Path([new Point(0, 0), new Point(80, 0)], false),
+                    '#f1c40f00',
+                    '#f1c40f'
+                ),
+                Item.create(
+                    '12',
+                    ItemType.Window,
+                    'Window',
+                    new Point(-130, -250),
+                    new Path([new Point(0, 0), new Point(80, 0)], false),
+                    '#f1c40f00',
+                    '#f1c40f'
+                ),
             ]),
             new Layer(LayerType.Item, 'Items', [
                 Item.create(
