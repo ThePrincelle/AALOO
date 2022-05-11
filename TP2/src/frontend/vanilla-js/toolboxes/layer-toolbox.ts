@@ -1,8 +1,8 @@
 import { icon } from '@fortawesome/fontawesome-svg-core';
 import {
-    faAdd,
     faEye,
     faEyeSlash,
+    faLayerGroup,
     faLock,
     faTrashCan,
     faUnlock,
@@ -19,7 +19,7 @@ import {
 export class LayerToolbox extends Toolbox {
     protected readonly title = 'Layers';
 
-    private readonly addIcon = icon(faAdd);
+    private readonly layersIcon = icon(faLayerGroup);
     private readonly eyeIcon = icon(faEye);
     private readonly eyeSlashIcon = icon(faEyeSlash);
     private readonly lockIcon = icon(faLock);
@@ -34,18 +34,8 @@ export class LayerToolbox extends Toolbox {
     }
 
     public createElement(): HTMLElement {
-        const addLayerElement = document.createElement('button');
-        addLayerElement.classList.add('new-layer-button');
-        addLayerElement.title = 'Ajouter un layer';
-        addLayerElement.appendChild(this.addIcon.node[0]);
-        addLayerElement.onclick = () => {
-            // TODO: Create layer from controller
-            console.log('TODO: Create layer');
-            // TODO: Refresh view with presenter
-            this.controller.getPlans();
-        };
+        const element = super.createElement(this.layersIcon);
 
-        const element = super.createElement(addLayerElement);
         element.id = 'layer-toolbox';
 
         const layerListElement: HTMLElement = document.createElement('ul');

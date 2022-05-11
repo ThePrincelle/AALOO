@@ -1,4 +1,5 @@
 import './toolbox.scss';
+import { Icon } from '@fortawesome/fontawesome-svg-core';
 
 export abstract class Toolbox {
     protected abstract readonly title: string;
@@ -17,7 +18,7 @@ export abstract class Toolbox {
         }
     }
 
-    public createElement(action?: HTMLElement): HTMLElement {
+    public createElement(icon?: Icon): HTMLElement {
         this.element = document.createElement('div');
 
         this.element.style.display = 'none';
@@ -32,9 +33,10 @@ export abstract class Toolbox {
 
         headingElement.appendChild(titleElement);
 
-        if (action) {
-            action.classList.add('toolbox-action');
-            headingElement.appendChild(action);
+        if (icon) {
+            const iconElement = icon.node[0];
+            iconElement.classList.add('toolbox-icon');
+            headingElement.appendChild(iconElement);
         }
 
         this.element.appendChild(headingElement);
