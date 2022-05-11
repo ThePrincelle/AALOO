@@ -5,6 +5,8 @@ export class HistoryCacheRepository implements HistoryRepositoryInterface {
     private undoStack: Plan[] = [];
     private redoStack: Plan[] = [];
 
+    public static readonly HISTORY_SIZE = 50;
+
     public async canUndoRedo(): Promise<{
         canUndo: boolean;
         canRedo: boolean;
@@ -18,6 +20,8 @@ export class HistoryCacheRepository implements HistoryRepositoryInterface {
     public async undo(): Promise<Plan | undefined> {
         const plan = this.undoStack.pop();
         if (plan) {
+            if (this.redoStack.length > HistoryCacheRepository.HISTORY_SIZE)
+                this.redoStack.shift();
             this.redoStack.push(plan);
         }
         return JSON.parse(JSON.stringify(this.undoStack.at(-1)));
@@ -26,6 +30,8 @@ export class HistoryCacheRepository implements HistoryRepositoryInterface {
     public async redo(): Promise<Plan | undefined> {
         const plan = this.redoStack.pop();
         if (plan) {
+            if (this.undoStack.length > HistoryCacheRepository.HISTORY_SIZE)
+                this.undoStack.shift();
             this.undoStack.push(plan);
         }
         return JSON.parse(JSON.stringify(plan));
