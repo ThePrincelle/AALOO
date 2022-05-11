@@ -6,11 +6,10 @@ import { ToolboxesContainer } from '../toolbox';
 import {
     ColorToolbox,
     SaveToolbox,
-    PathToolbox,
     LayerToolbox,
     CatalogToolbox,
 } from '../toolboxes';
-import { FillTool, MoveTool, PathTool } from '../tools';
+import { FillTool, MoveTool } from '../tools';
 import {
     RedoActionBtn,
     SaveActionBtn,
@@ -61,7 +60,7 @@ export class App {
         );
 
         const colorToolbox = new ColorToolbox();
-        const pathToolbox = new PathToolbox();
+        // const pathToolbox = new PathToolbox();
         const catalogToolbox = new CatalogToolbox(
             this.planFactory.controller,
             this.planFactory.viewModel
@@ -79,7 +78,7 @@ export class App {
 
         toolboxes.addToolbox(catalogToolbox);
         toolboxes.addToolbox(colorToolbox);
-        toolboxes.addToolbox(pathToolbox);
+        // toolboxes.addToolbox(pathToolbox);
         toolboxes.addToolbox(
             new SaveToolbox(
                 this.planFactory.controller,
@@ -93,7 +92,7 @@ export class App {
         toolbar.addTool(
             new FillTool(colorToolbox, this.planFactory.controller)
         );
-        toolbar.addTool(new PathTool(pathToolbox));
+        // toolbar.addTool(new PathTool(pathToolbox));
     }
 
     private initializePaper(): void {
