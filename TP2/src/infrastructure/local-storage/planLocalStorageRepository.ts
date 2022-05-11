@@ -18,7 +18,7 @@ export class PlanLocalStorageRepository implements PlanRepositoryInterface {
     public async nextId(): Promise<string> {
         // TODO: Better implementation (e.g. UUID, Singleton with cache, etc.)
         const nextId = this.storage.getItem('paper-nextId');
-        const nextIdNumber = nextId ? parseInt(nextId, 10) : 0;
+        const nextIdNumber = nextId ? parseInt(nextId, 10) : 20;
         const nextIdString = (nextIdNumber + 1).toString();
         this.storage.setItem('paper-nextId', nextIdString);
 
