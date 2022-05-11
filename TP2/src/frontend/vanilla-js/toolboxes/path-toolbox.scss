@@ -1,0 +1,67 @@
+.path-toolbox {
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 8px;
+    column-gap: 8px;
+
+    .checkbox-input {
+        display: flex;
+        column-gap: 8px;
+
+        .input-close-path-checkbox {
+            position: absolute;
+            top: -9999px;
+            left: -9999px;
+            &:checked {
+                & + .input-close-path-label {
+                    &::before {
+                        background-color: hsl(145, 63%, 35%);
+                        border: solid 0.1em hsl(145, 63%, 35%);
+                        transition: all 100ms ease-in-out;
+                    }
+                    &::after {
+                        content: '\2714';
+                        transform: translateX(2.1em);
+                        color: hsl(145, 63%, 35%);
+                        background-color: hsl(145, 63%, 49%);
+                        transition: all 100ms ease-in-out;
+                    }
+                }
+            }
+        }
+
+        .input-close-path-label {
+            display: flex;
+            position: relative;
+            align-items: center;
+            column-gap: 8px;
+            width: 100%;
+
+            &::before {
+                content: '';
+                width: 2em;
+                height: 1em;
+                background-color: hsl(6, 78%, 57%);
+                border: solid 0.1em hsl(6, 78%, 57%);
+                border-radius: 10em;
+                transition: all 100ms ease-in-out;
+            }
+
+            &::after {
+                content: '\2716';
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 0.5em;
+                position: absolute;
+                width: 2em;
+                height: 2em;
+                transform: translateX(0.1em);
+                color: hsl(6, 78%, 57%);
+                background-color: hsl(6, 78%, 35%);
+                border-radius: 10em;
+                transition: all 100ms ease-in-out;
+            }
+        }
+    }
+}

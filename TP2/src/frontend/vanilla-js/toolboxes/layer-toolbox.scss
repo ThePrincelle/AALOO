@@ -1,0 +1,99 @@
+@use '../variables' as vars;
+
+#layer-toolbox {
+    flex: 1;
+    row-gap: 0.5rem;
+    overflow-y: hidden;
+}
+
+.layer-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    height: 100%;
+    overflow-y: auto;
+
+    .layer-drawer {
+        margin-top: 0.25rem;
+
+        &:first-of-type{
+            margin-top: 0;
+        }
+
+        .layer-drawer-title {
+            cursor: pointer;
+            font-weight: bold;
+            background-color: transparent;
+            padding: 0.5rem;
+            border-radius: 0.25rem;
+            transition: all 50ms ease-in-out;
+
+            &:hover {
+                background-color: transparentize(black, .5);
+            }
+        }
+
+        .layer-item-list {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 0.5rem;
+
+            .layer-item {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 0.25rem 0.25rem 0.25rem 1.5rem;
+                margin-top: 0.25rem;
+                border-radius: 0.25rem;
+                background-color: transparent;
+                transition: all 50ms ease-in-out;
+
+                &:first-of-type {
+                    margin-top: 0;
+                }
+
+                &:hover {
+                    background-color: transparentize(black, .75);
+                }
+            }
+
+        }
+    }
+}
+
+.icons-container {
+    display: flex;
+    column-gap: 0.25rem;
+
+    > .item-button {
+        cursor: pointer;
+        color: vars.$color-text-light;
+        background-color: transparentize(black, .85);
+        border: none;
+        transition: all 50ms ease-in-out;
+        height: 1.75em;
+        width: 1.75em;
+        border-radius: 0.25rem;
+
+        &:hover {
+            background-color: transparentize(black, .4);
+        }
+
+        &[aria-checked="true"] {
+            background-color: vars.$color-primary;
+
+            &:hover {
+                background-color: transparentize(vars.$color-primary, .4);
+            }
+        }
+
+        &.delelte {
+            background-color: vars.$color-error;
+
+            &:hover {
+                background-color: darken(vars.$color-error, 10%);
+            }
+        }
+    }
+}
+

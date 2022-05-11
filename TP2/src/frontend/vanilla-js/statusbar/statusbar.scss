@@ -1,0 +1,73 @@
+@use '../variables' as vars;
+
+.statusbar-container {
+    display: flex;
+    column-gap: 2rem;
+    padding: 0 1.5rem;
+    align-items: center;
+    justify-content: center;
+    background-color: vars.$color-slate;
+    box-shadow: vars.$popup-box-shadow;
+
+    > .actions-list {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        column-gap: .125rem;
+
+        &.actions-list-leading {
+            justify-content: flex-start;
+        }
+
+        &.actions-list-trailing {
+            justify-content: flex-end;
+        }
+
+        > .action-btn {
+            cursor: pointer;
+            color: vars.$color-text-light;
+            background-color: transparent;
+            border: none;
+            transition: all 50ms ease-in-out;
+            height: 1.75em;
+            width: 1.75em;
+            border-radius: 0.25rem;
+            font-size: 1.25em;
+
+            &:hover {
+                background-color: vars.$color-primary;
+            }
+
+            &:disabled {
+                cursor: not-allowed;
+                color: vars.$color-text-disabled;
+
+                &:hover {
+                    background-color: transparentize(vars.$color-text-disabled, 0.4);
+                }
+            }
+        }
+    }
+
+    > .actions-list-center {
+        justify-content: center;
+
+        .statusbar-title {
+            flex: 1;
+            text-align: center;
+            font-weight: bold;
+            color: vars.$color-text-light;
+            background-color: transparent;
+            border: transparent;
+            padding: 0.125rem 0.5rem;
+            border-radius: 0.25rem;
+            transition: all 50ms ease-in-out;
+
+            &:focus {
+                outline: none;
+                border: 2px solid vars.$color-primary;
+            }
+        }
+    }
+}
