@@ -105,6 +105,14 @@
                 background-color: transparentize(vars.$color-primary, .4);
             }
         }
+
+        &.delelte {
+            background-color: vars.$color-error;
+
+            &:hover {
+                background-color: darken(vars.$color-error, 10%);
+            }
+        }
     }
 }
 

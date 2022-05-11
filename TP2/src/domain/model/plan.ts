@@ -1,4 +1,4 @@
-import { Layer } from './layer';
+import { Layer, LayerType } from './layer';
 import { Item, ItemType } from './item';
 import { Point } from './point';
 import { Circle } from './shape';
@@ -12,29 +12,29 @@ export class Plan {
         public readonly id: string,
         public name: string = `Untitled ${id}`,
         public layers: Layer[] = [
-            new Layer('0', 'Foundation', [
+            new Layer(LayerType.Foundation, 'Foundation', [
                 Item.create(
                     '4',
                     ItemType.Foundation,
                     'Foundation',
-                    new Point(0, 0)
+                    new Point(-250, -250)
                 ),
             ]),
-            new Layer('1', 'Walls / Stairs'),
-            new Layer('2', 'Items', [
+            new Layer(LayerType.Structure, 'Walls / Stairs / Windows'),
+            new Layer(LayerType.Item, 'Items', [
                 Item.create(
                     '5',
                     ItemType.Furniture,
                     'Table',
-                    new Point(20, 20)
+                    new Point(-230, -230)
                 ),
             ]),
-            new Layer('3', 'Hanged Items', [
+            new Layer(LayerType.Hangable, 'Hanged Items', [
                 Item.create(
                     '6',
                     ItemType.Hangable,
                     'Lamp',
-                    new Point(250, 250),
+                    new Point(0, 0),
                     new Circle(25)
                 ),
             ]),

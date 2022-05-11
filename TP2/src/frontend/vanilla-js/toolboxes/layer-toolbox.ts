@@ -4,6 +4,7 @@ import {
     faEye,
     faEyeSlash,
     faLock,
+    faTrashCan,
     faUnlock,
 } from '@fortawesome/free-solid-svg-icons';
 import { Toolbox } from '../toolbox';
@@ -23,6 +24,7 @@ export class LayerToolbox extends Toolbox {
     private readonly eyeSlashIcon = icon(faEyeSlash);
     private readonly lockIcon = icon(faLock);
     private readonly unlockIcon = icon(faUnlock);
+    private readonly delelteIcon = icon(faTrashCan);
 
     public constructor(
         private readonly controller: PlanController,
@@ -89,7 +91,7 @@ export class LayerToolbox extends Toolbox {
 
         // Create an item element for each item in the layer
         layerVM.children.forEach((itemVM) => {
-            layerListElement.appendChild(
+            layerListElement.prepend(
                 this.createItemElement(itemVM, layerVM.id)
             );
         });
@@ -161,6 +163,18 @@ export class LayerToolbox extends Toolbox {
             );
         };
         iconsContainer.appendChild(lockButtonElement);
+
+        const deleteButtonElement = document.createElement('button');
+        deleteButtonElement.classList.add('item-button', 'delelte');
+        deleteButtonElement.appendChild(this.delelteIcon.node[0]);
+        deleteButtonElement.onclick = () => {
+            this.controller.deleteItem(
+                itemVM.id,
+                this.viewModel.activePlan!.id,
+                layerId
+            );
+        };
+        iconsContainer.appendChild(deleteButtonElement);
 
         element.appendChild(iconsContainer);
 

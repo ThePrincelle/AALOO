@@ -8,16 +8,17 @@ import {
     SaveToolbox,
     PathToolbox,
     LayerToolbox,
+    CatalogToolbox,
 } from '../toolboxes';
 import { FillTool, MoveTool, PathTool } from '../tools';
-import './app.scss';
-
-import { planFactory, PlanFactory } from '../../interface-adapter';
 import {
     RedoActionBtn,
     SaveActionBtn,
     UndoActionBtn,
 } from '../statusbar-actions';
+import './app.scss';
+
+import { planFactory, PlanFactory } from '../../interface-adapter';
 
 export class App {
     public static create(host: HTMLElement): App {
@@ -60,15 +61,22 @@ export class App {
 
         const colorToolbox = new ColorToolbox();
         const pathToolbox = new PathToolbox();
+        const catalogToolbox = new CatalogToolbox(
+            this.planFactory.controller,
+            this.planFactory.viewModel
+        );
 
-        const toolboxes = ToolboxesContainer.create(element);
-
-        toolboxes.addToolbox(
+        const layerToolboxes = ToolboxesContainer.create(element, false);
+        layerToolboxes.addToolbox(
             new LayerToolbox(
                 this.planFactory.controller,
                 this.planFactory.viewModel
             )
         );
+
+        const toolboxes = ToolboxesContainer.create(element, true);
+
+        toolboxes.addToolbox(catalogToolbox);
         toolboxes.addToolbox(colorToolbox);
         toolboxes.addToolbox(pathToolbox);
         toolboxes.addToolbox(

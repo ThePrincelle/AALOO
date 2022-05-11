@@ -26,6 +26,10 @@ import {
     RedoActionResponse,
     ClearHistoryPresenterInterface,
     ClearHistoryResponse,
+    CreateItemPresenterInterface,
+    CreateItemResponse,
+    DeleteItemPresenterInterface,
+    DeleteItemResponse,
 } from '../../../domain/usecases';
 import {
     LayerViewModel,
@@ -44,6 +48,8 @@ export class PlanUIPresenter
         SavePlanPresenterInterface,
         UpdatePlanPresenterInterface,
         UpdateItemPresenterInterface,
+        CreateItemPresenterInterface,
+        DeleteItemPresenterInterface,
         CanUndoRedoPresenterInterface,
         AddActionPresenterInterface,
         UndoActionPresenterInterface,
@@ -130,6 +136,46 @@ export class PlanUIPresenter
         ].children.findIndex((i) => i.id === response.updatedItem!.id);
         this._plans[planIndex].layers[layerIndex].children[index] =
             response.updatedItem!;
+        this.updateViewPlans();
+    }
+
+    public presentCreateItem(response: CreateItemResponse): void {
+        const planIndex = this._plans.findIndex(
+            (p) => p.id === response.planId
+        );
+        if (planIndex === -1) throw new Error('Plan not found');
+
+        const layerIndex = this._plans[planIndex].layers.findIndex(
+            (l) => l.id === response.layerId
+        );
+        if (layerIndex === -1) throw new Error('Layer not found');
+
+        this._plans[planIndex].layers[layerIndex].children.push(response.item!);
+        this.updateViewPlans();
+    }
+
+    public presentDeleteItem(response: DeleteItemResponse): void {
+        const planIndex = this._plans.findIndex(
+            (p) => p.id === response.planId
+        );
+        if (planIndex === -1) throw new Error('Plan not found');
+
+        const layerIndex = this._plans[planIndex].layers.findIndex(
+            (l) => l.id === response.layerId
+        );
+        if (layerIndex === -1) throw new Error('Layer not found');
+
+        const itemIdex = this._plans[planIndex].layers[
+            layerIndex
+        ].children.findIndex((i) => i.id === response.deletedItem!.id);
+
+        if (itemIdex !== -1) {
+            this._plans[planIndex].layers[layerIndex].children.splice(
+                itemIdex,
+                1
+            );
+        }
+
         this.updateViewPlans();
     }
 

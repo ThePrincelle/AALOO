@@ -1,4 +1,5 @@
-import { Item, Plan } from '../../../domain/model';
+import { Item, ItemType, Plan, Point } from '../../../domain/model';
+import { Shape } from '../../../domain/model/shape';
 import {
     CreatePlan,
     CreatePlanPresenterInterface,
@@ -21,6 +22,9 @@ import {
     UpdateItemPresenterInterface,
     UpdateItemRequest,
     UpdatePlan,
+    CreateItemPresenterInterface,
+    CreateItemRequest,
+    CreateItem,
     UpdatePlanPresenterInterface,
     UpdatePlanRequest,
     CanUndoRedoPresenterInterface,
@@ -34,6 +38,9 @@ import {
     AddAction,
     ClearHistory,
     AddActionRequest,
+    DeleteItemPresenterInterface,
+    DeleteItem,
+    DeleteItemRequest,
 } from '../../../domain/usecases';
 
 export class PlanController {
@@ -54,7 +61,11 @@ export class PlanController {
         private readonly updatePlanService: UpdatePlan,
 
         private readonly updateItemPresenter: UpdateItemPresenterInterface,
+        private readonly createItemPresenter: CreateItemPresenterInterface,
+        private readonly deleteItemPresenter: DeleteItemPresenterInterface,
         private readonly updateItemService: UpdateItem,
+        private readonly createItemService: CreateItem,
+        private readonly deleteItemService: DeleteItem,
 
         private readonly canUndoRedoPresenter: CanUndoRedoPresenterInterface,
         private readonly addActionPresenter: AddActionPresenterInterface,
@@ -122,6 +133,42 @@ export class PlanController {
         await this.updateItemService.execute(
             new UpdateItemRequest(item, planId, layerId),
             this.updateItemPresenter
+        );
+        await this.canUndoRedoService.execute(this.canUndoRedoPresenter);
+    }
+
+    public async createItem(
+        name: string,
+        type: ItemType,
+        planId: string,
+        layerId: string,
+        position?: Point,
+        shape?: Shape,
+        color?: string
+    ): Promise<void> {
+        await this.createItemService.execute(
+            new CreateItemRequest(
+                name,
+                type,
+                planId,
+                layerId,
+                position,
+                shape,
+                color
+            ),
+            this.createItemPresenter
+        );
+        await this.canUndoRedoService.execute(this.canUndoRedoPresenter);
+    }
+
+    public async deleteItem(
+        itemId: string,
+        planId: string,
+        layerId: string
+    ): Promise<void> {
+        await this.deleteItemService.execute(
+            new DeleteItemRequest(itemId, planId, layerId),
+            this.deleteItemPresenter
         );
         await this.canUndoRedoService.execute(this.canUndoRedoPresenter);
     }
