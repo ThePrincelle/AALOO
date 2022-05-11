@@ -120,6 +120,7 @@ export class App {
                     this.planFactory.controller.savePlan(
                         this.planFactory.viewModel.activePlan!
                     );
+                    e.preventDefault();
                     break;
                 case 'z':
                     if (e.shiftKey) {
@@ -129,16 +130,16 @@ export class App {
                         this.planFactory.viewModel.canUndo &&
                             this.planFactory.controller.undo();
                     }
+                    e.preventDefault();
                     break;
                 case 'y':
                     this.planFactory.viewModel.canRedo &&
                         this.planFactory.controller.redo();
+                    e.preventDefault();
                     break;
                 default:
                     break;
             }
-
-            e.preventDefault();
         };
     }
 }
