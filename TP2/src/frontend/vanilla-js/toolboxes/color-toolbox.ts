@@ -1,13 +1,34 @@
 import * as paper from 'paper';
 import { Toolbox } from '../toolbox';
 import './color-toolbox.scss';
+import { icon } from '@fortawesome/fontawesome-svg-core';
+import { faFillDrip } from '@fortawesome/free-solid-svg-icons';
 
 export class ColorToolbox extends Toolbox {
     protected readonly title = 'Couleur';
 
+    private readonly colorIcon = icon(faFillDrip);
+
     private static readonly colors = [
-        '#F44336', '#E91E63', '#9C27B0', '#673AB7', '#3F51B5', '#2196F3', '#03A9F4', '#00BCD4', '#009688', '#4CAF50',
-        '#8BC34A', '#CDDC39', '#FFEB3B', '#FFC107', '#FF9800', '#FF5722', '#795548', '#9E9E9E', '#607D8B'
+        '#F44336',
+        '#E91E63',
+        '#9C27B0',
+        '#673AB7',
+        '#3F51B5',
+        '#2196F3',
+        '#03A9F4',
+        '#00BCD4',
+        '#009688',
+        '#4CAF50',
+        '#8BC34A',
+        '#CDDC39',
+        '#FFEB3B',
+        '#FFC107',
+        '#FF9800',
+        '#FF5722',
+        '#795548',
+        '#9E9E9E',
+        '#607D8B',
     ];
 
     private currentColorElement?: HTMLInputElement;
@@ -25,7 +46,7 @@ export class ColorToolbox extends Toolbox {
     }
 
     public createElement(): HTMLElement {
-        const element = super.createElement();
+        const element = super.createElement(this.colorIcon);
 
         element.classList.add('color-toolbox');
 
@@ -34,7 +55,8 @@ export class ColorToolbox extends Toolbox {
         this.currentColorElement = document.createElement('input');
 
         this.currentColorElement.type = 'color';
-        this.currentColorElement.value = ColorToolbox.colors[ColorToolbox.colors.length - 1];
+        this.currentColorElement.value =
+            ColorToolbox.colors[ColorToolbox.colors.length - 1];
         this.currentColorElement.classList.add('input-current-color');
 
         element.appendChild(this.currentColorElement);
@@ -47,7 +69,10 @@ export class ColorToolbox extends Toolbox {
             colorElement.style.backgroundColor = color;
             colorElement.classList.add('palette-color');
 
-            colorElement.addEventListener('click', () => this.currentColorElement!.value = color);
+            colorElement.addEventListener(
+                'click',
+                () => (this.currentColorElement!.value = color)
+            );
 
             colorsElement.appendChild(colorElement);
         }

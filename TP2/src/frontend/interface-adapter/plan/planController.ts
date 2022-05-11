@@ -109,6 +109,8 @@ export class PlanController {
             new LoadPlanRequest(id),
             this.loadPlanPresenter
         );
+        await this.clearHistoryService.execute(this.clearHistoryPresenter);
+        await this.canUndoRedoService.execute(this.canUndoRedoPresenter);
     }
 
     public async savePlan(plan: Plan): Promise<void> {

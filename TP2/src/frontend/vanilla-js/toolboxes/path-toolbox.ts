@@ -1,8 +1,12 @@
 import { Toolbox } from '../toolbox';
 import './path-toolbox.scss';
+import { faDrawPolygon } from '@fortawesome/free-solid-svg-icons';
+import { icon } from '@fortawesome/fontawesome-svg-core';
 
 export class PathToolbox extends Toolbox {
     protected readonly title = 'Path';
+
+    private readonly pathIcon = icon(faDrawPolygon);
 
     private closedPath: boolean = true;
 
@@ -13,7 +17,7 @@ export class PathToolbox extends Toolbox {
     }
 
     public createElement(): HTMLElement {
-        const element = super.createElement();
+        const element = super.createElement(this.pathIcon);
 
         element.classList.add('path-toolbox');
 

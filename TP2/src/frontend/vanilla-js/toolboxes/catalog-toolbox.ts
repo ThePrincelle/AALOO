@@ -4,6 +4,7 @@ import { Item, ItemType, LayerType, Point } from '../../../domain/model';
 import {
     faArchway,
     faBed,
+    faBook,
     faChair,
     faCube,
     faDoorOpen,
@@ -33,6 +34,8 @@ interface CatalogSection {
 
 export class CatalogToolbox extends Toolbox {
     protected readonly title = 'Catalogue';
+
+    private readonly bookIcon = icon(faBook);
 
     private sections: CatalogSection[] = [
         {
@@ -216,7 +219,7 @@ export class CatalogToolbox extends Toolbox {
     }
 
     public createElement(): HTMLElement {
-        const element = super.createElement();
+        const element = super.createElement(this.bookIcon);
 
         element.classList.add('catalog-toolbox');
 
