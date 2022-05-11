@@ -10,7 +10,7 @@ import { Circle, Rectangle, Path } from './shape';
 export class Plan {
     public constructor(
         public readonly id: string,
-        public name: string = `Untitled ${id}`,
+        public name: string = 'Untitled Plan',
         public layers: Layer[] = [
             new Layer(LayerType.Foundation, 'Foundation', [
                 Item.create(
