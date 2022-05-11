@@ -147,7 +147,7 @@ export class CatalogToolbox extends Toolbox {
                     props: {
                         type: ItemType.Furniture,
                         name: 'Bed',
-                        shape: new Rectangle(150, 100),
+                        shape: new Rectangle(80, 60),
                         fillcolor: '#e74c3c',
                     },
                 },
