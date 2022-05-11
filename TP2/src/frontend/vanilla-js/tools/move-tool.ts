@@ -19,6 +19,8 @@ export class MoveTool extends PaperTool {
         this.paperTool.onMouseDown = this.onMouseDown.bind(this);
         this.paperTool.onMouseDrag = this.onMouseDrag.bind(this);
         this.paperTool.onMouseUp = this.onMouseUp.bind(this);
+
+        this.paperTool.onKeyUp = this.onKeyUp.bind(this);
     }
 
     public enable(): void {
@@ -89,6 +91,28 @@ export class MoveTool extends PaperTool {
                     );
                 }
             });
+        }
+    }
+
+    public onKeyUp(event: paper.KeyEvent): void {
+        if (!this.selectedItem) return;
+
+        switch (event.key) {
+            case 'delete':
+            case 'backspace':
+                const item = this.selectedItem;
+                this.selectedItem = undefined;
+
+                item.children.forEach((child) => {
+                    if (child.matches({ data: { isDomainItem: true } })) {
+                        this.controller.deleteItem(
+                            child.data.id,
+                            child.data.planId,
+                            child.data.layerId
+                        );
+                    }
+                });
+                break;
         }
     }
 }
